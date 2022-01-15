@@ -107,6 +107,16 @@ const TabNav = ({navigation}) => {
     <React.Fragment>
       <Tab.Navigator
         lazy={true}
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            height: wp(24),
+            backgroundColor: 'white',
+          },
+        }}
+        sceneContainerStyle={{
+          backgroundColor: '#ffffff',
+        }}
         tabBarOptions={{
           keyboardHidesTabBar: true,
         }}>

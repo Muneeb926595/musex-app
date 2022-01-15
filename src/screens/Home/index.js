@@ -1,13 +1,19 @@
 import React from 'react';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {MyText} from 'components';
+import {RecentPlayed, Discover, FollowArtists} from './components';
+import {Col, MainHeader, Container} from 'components';
 
 const index = () => {
   return (
-    <MyText>
-      FooderHi there testing this new version of my app just a new testfor a
-      very long text
-    </MyText>
+    <>
+      <MainHeader />
+      <Container hasScroll pad={`${wp(12)}px ${wp(5)}px ${wp(2)}px ${wp(5)}px`}>
+        <FollowArtists />
+        <RecentPlayed />
+        <Discover />
+      </Container>
+    </>
   );
 };
 
