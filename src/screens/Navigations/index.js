@@ -19,7 +19,7 @@ const index = () => {
             gestureEnabled: false,
           }}
           name="TabNav">
-          {props => (
+          {(props) => (
             <Col relative>
               <TabNav {...props} />
             </Col>

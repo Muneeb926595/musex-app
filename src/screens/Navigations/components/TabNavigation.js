@@ -8,16 +8,15 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import TabBarItem from './TabBarItem';
 import {registerToken} from 'store/auth/AuthActions';
 import {playBackgroundSound} from 'helpers';
+import {MyText} from 'components';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCze9b6m9qjEVUEYuJuK5u6gAca5Pumujc',
-  authDomain: 'foodbook-beta-1p5.firebaseapp.com',
-  databaseURL: 'https://foodbook-beta-1p5.firebaseio.com',
-  projectId: 'foodbook-beta-1p5',
-  storageBucket: 'foodbook-beta-1p5.appspot.com',
-  messagingSenderId: '210660078855',
-  appId: '1:210660078855:web:227214bc8a180380dd01a2',
-  measurementId: 'G-0TB5LSG4WG',
+  apiKey: 'AIzaSyAnglS7dFbdn7zmKxrshAIXsRSlSe50jCU',
+  authDomain: 'musex-1a8ac.firebaseapp.com',
+  projectId: 'musex-1a8ac',
+  storageBucket: 'musex-1a8ac.appspot.com',
+  messagingSenderId: '18736113160',
+  appId: '1:18736113160:web:8e07bd541775433d1353bd',
 };
 if (!firebase?.apps?.length) {
   firebase.initializeApp(firebaseConfig);
@@ -28,87 +27,107 @@ if (!firebase?.apps?.length) {
 const Tab = createBottomTabNavigator();
 
 const Fooder = () => {
-  return <></>;
+  return (
+    <MyText>
+      FooderHi there testing this new version of my app just a new testfor a
+      very long text
+    </MyText>
+  );
+};
+const RecipeHub = () => {
+  return (
+    <MyText>
+      RecipeHub Hi there testing this new version of my app just a new testfor a
+      very long text
+    </MyText>
+  );
+};
+const Market = () => {
+  return (
+    <MyText>
+      MarketHi there testing this new version of my app just a new testfor a
+      very long text
+    </MyText>
+  );
+};
+const FoodAndI = () => {
+  return (
+    <MyText>
+      FoodAndIHi there testing this new version of my app just a new testfor a
+      very long text
+    </MyText>
+  );
 };
 
 const TabNav = ({navigation}) => {
   const [activeMenu, setActiveMenu] = useState('Fooder');
-  // const dispatch = useDispatch();
-  // const userId = useSelector(({Foodbook}) => Foodbook.auth.user._id);
+  const dispatch = useDispatch();
+  const userId = useSelector(({Foodbook}) => Foodbook.auth.user._id);
 
-  // useEffect(() => {
-  //   const handlePushNotifs = async () => {
-  //     if (userId) {
-  //       const authStatus = await messaging().requestPermission();
+  useEffect(() => {
+    const handlePushNotifs = async () => {
+      if (userId) {
+        const authStatus = await messaging().requestPermission();
 
-  //       messaging()
-  //         .getToken()
-  //         .then(deviceToken => {
-  //           dispatch(registerToken(deviceToken, userId));
-  //         });
+        messaging()
+          .getToken()
+          .then((deviceToken) => {
+            dispatch(registerToken(deviceToken, userId));
+          });
 
-  //       messaging().onMessage(message => {
-  //         const {title, body} = message.notification;
+        messaging().onMessage((message) => {
+          const {title, body} = message.notification;
 
-  //         if (
-  //           title === 'Feed By' ||
-  //           title?.includes('feed by') ||
-  //           body?.includes('feed by')
-  //         ) {
-  //           //user send follow request don't play sound
-  //         } else {
-  //           playBackgroundSound('push_notification.aac');
-  //         }
-  //       });
+          if (
+            title === 'Feed By' ||
+            title?.includes('feed by') ||
+            body?.includes('feed by')
+          ) {
+            //user send follow request don't play sound
+          } else {
+            playBackgroundSound('push_notification.aac');
+          }
+        });
 
-  //       messaging().onNotificationOpenedApp(remoteMessage => {
-  //         console.log('Notification caused app to open from background state');
-  //         navigation.navigate('TabNav');
-  //       });
+        messaging().onNotificationOpenedApp((remoteMessage) => {
+          console.log('Notification caused app to open from background state');
+          navigation.navigate('TabNav');
+        });
 
-  //       messaging()
-  //         .getInitialNotification()
-  //         .then(remoteMessage => {
-  //           console.log('Notification caused app to open from quit state');
-  //           navigation.navigate('TabNav');
-  //           navigation.reset({
-  //             index: 0,
-  //             routesName: [{name: 'TabNav'}],
-  //           });
-  //         });
-  //     }
-  //   };
+        messaging()
+          .getInitialNotification()
+          .then((remoteMessage) => {
+            console.log('Notification caused app to open from quit state');
+            navigation.navigate('TabNav');
+            navigation.reset({
+              index: 0,
+              routesName: [{name: 'TabNav'}],
+            });
+          });
+      }
+    };
 
-  //   handlePushNotifs();
-  // }, [userId]);
+    handlePushNotifs();
+  }, [userId]);
 
   return (
     <React.Fragment>
       <Tab.Navigator
         lazy={true}
         tabBarOptions={{
-          style: {
-            backgroundColor: 'transparent',
-            position: 'absolute',
-            height: wp(16),
-            alignItems: 'center',
-            borderTopColor: 'transparent',
-            display: 'flex',
-            flexDirection: 'row',
-          },
           keyboardHidesTabBar: true,
         }}>
         <Tab.Screen
           name="Fooder"
           component={Fooder}
           options={{
-            tabBarButton: props => (
+            tabBarButton: (props) => (
               <TabBarItem
                 {...props}
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                text="tab-fooders"
+                text="fooders"
                 navigateTo="Fooder"
                 activeMenu={activeMenu}
                 icon="navigation-fooders"
@@ -117,7 +136,73 @@ const TabNav = ({navigation}) => {
                 setActiveMenu={setActiveMenu}
               />
             ),
-            tabBarLabel: props => null,
+            tabBarLabel: (props) => null,
+          }}
+        />
+        <Tab.Screen
+          name="RecipeHub"
+          component={RecipeHub}
+          options={{
+            tabBarButton: (props) => (
+              <TabBarItem
+                {...props}
+                tabNumber={1}
+                iconHt={wp(8)}
+                iconWid={wp(8)}
+                text="RecipeHub"
+                navigateTo="RecipeHub"
+                activeMenu={activeMenu}
+                icon="navigation-fooders"
+                focused={props.focused}
+                navigation={navigation}
+                setActiveMenu={setActiveMenu}
+              />
+            ),
+            tabBarLabel: (props) => null,
+          }}
+        />
+        <Tab.Screen
+          name="Market"
+          component={Market}
+          options={{
+            tabBarButton: (props) => (
+              <TabBarItem
+                {...props}
+                tabNumber={1}
+                iconHt={wp(8)}
+                iconWid={wp(8)}
+                text="Market"
+                navigateTo="Market"
+                activeMenu={activeMenu}
+                icon="navigation-fooders"
+                focused={props.focused}
+                navigation={navigation}
+                setActiveMenu={setActiveMenu}
+              />
+            ),
+            tabBarLabel: (props) => null,
+          }}
+        />
+        <Tab.Screen
+          name="FoodAndI"
+          component={FoodAndI}
+          options={{
+            tabBarButton: (props) => (
+              <TabBarItem
+                {...props}
+                tabNumber={1}
+                iconHt={wp(8)}
+                iconWid={wp(8)}
+                text="FoodAndI"
+                navigateTo="FoodAndI"
+                activeMenu={activeMenu}
+                icon="navigation-fooders"
+                focused={props.focused}
+                navigation={navigation}
+                setActiveMenu={setActiveMenu}
+              />
+            ),
+            tabBarLabel: (props) => null,
           }}
         />
       </Tab.Navigator>
