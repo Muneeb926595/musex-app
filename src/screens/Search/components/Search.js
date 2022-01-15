@@ -16,14 +16,16 @@ const Search = ({navigation}) => {
 
   return (
     <Row noFlex center marg={`${wp(3)}px 0 0 0`}>
-      <Clickable onClick={goBack}>
+      <Clickable
+        pad={`${wp(2)}px ${wp(2)}px ${wp(2)}px ${wp(1)}px `}
+        onClick={goBack}>
         <Icon type="blue-back" size={wp(5)} />
       </Clickable>
       <Row
         bg="#ffffff"
         hasShadow="0 0 10px #cdcdcdf4"
         hasRadius="20"
-        marg={`0 ${wp(2)}px`}
+        marg={`0 ${wp(2)}px 0 0`}
         pad={`${wp(3)}px ${wp(4)}px`}>
         <TextInput
           style={{flex: 1}}
@@ -32,7 +34,7 @@ const Search = ({navigation}) => {
           onChangeText={(value) => setSearchText(value)}
         />
         {(searchText !== '' || searchText?.length > 0) && (
-          <Clickable onClick={handleResetSearch}>
+          <Clickable pad={`0 0 0 ${wp(3)}px`} onClick={handleResetSearch}>
             <Icon type="rounded-cross" size={wp(5)} />
           </Clickable>
         )}

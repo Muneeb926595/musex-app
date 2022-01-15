@@ -12,7 +12,5 @@ export {default as Container} from './Container';
 export {default as CustomModal} from './CustomModal';
 export {default as Icon} from './Icon';
 export {default as PostImage} from './PostImage';
-export {MainHeader, SettingsHeader, MessengerHeader} from './Headers';
-export {FoodersPost} from './Cards';
-export {ForgotPassword, PostActions, DeleteAccount} from './modals';
+export {MainHeader, PlayerHeader} from './Headers';
 export {FormInput} from './FormElements';

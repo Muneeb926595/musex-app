@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Row, MyText, Col, Box, Avatar} from 'components';
+import {MyText, Box} from 'components';
 
 const DiscoverCard = () => {
   return (
@@ -19,8 +19,8 @@ const DiscoverCard = () => {
           uri: 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
         }}
         style={{
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
+          borderTopLeftRadius: wp(5),
+          borderTopRightRadius: wp(5),
           width: '100%',
           height: '100%',
         }}
