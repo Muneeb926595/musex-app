@@ -19,13 +19,10 @@ const Discover = () => {
           <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
         </Row>
       </Row>
-      <Row noFlex center between marg={`${wp(8)}px 0`}>
-        <Col centerAll noFlex>
-          <Avatar size={wp(14)} />
-          <MyText marg={`${wp(3)}px 0 0 0`} weight="400" color="#9d9d9d">
-            Others
-          </MyText>
-        </Col>
+      <Row noFlex between pad={`0 ${wp(2)}px`} marg={`${wp(8)}px 0`}>
+        <DiscoverCard />
+        <DiscoverCard />
+        <DiscoverCard />
       </Row>
     </Col>
   );

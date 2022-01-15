@@ -23,8 +23,8 @@ const MainHeader = () => {
           Testing
         </MyText>
       </Row>
-      <Box border="1px #bdbdbd" pad={`${wp(2.2)}px`} hasRadius="100">
-        <Icon type="header-search" />
+      <Box border="1px #bdbdbd" pad={`${wp(2)}px`} hasRadius="100">
+        <Icon type="header-search" size={wp(4.6)} />
       </Box>
     </Row>
   );

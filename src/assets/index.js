@@ -3,5 +3,6 @@ export const icons = {
   'white-dot': require('./icons/white-dot.png'),
   'right-arrow': require('./icons/right-arrow.png'),
   'rounded-cross': require('./icons/rounded-cross.png'),
+  'header-search': require('./icons/header-search.png'),
   'user-placeholder': require('./icons/user-placeholder.png'),
 };

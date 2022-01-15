@@ -1,34 +1,42 @@
 import React from 'react';
+import {Image} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Row, MyText, Col, Avatar} from 'components';
+import {Row, MyText, Col, Box, Avatar} from 'components';
 
 const DiscoverCard = () => {
   return (
-    <Row
-      between
-      pad={`${wp(4)}px ${wp(6)}px`}
-      hasShadow="0 0 30px #cdcdcd45"
-      hasRadius="10"
-      bg="#ffffff"
-      center>
-      <Row center>
-        <Avatar
-          uri="https://images.unsplash.com/photo-1520975916090-3105956dac38?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fG1lbnN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-          size={wp(14)}
-        />
-        <Col marg={`0 0 0 ${wp(4)}px`} noFlex>
-          <MyText weight="300" marg={`0 0 ${wp(0.8)}px 0`} color="#9d9d9d">
-            The Weeknd
-          </MyText>
-          <MyText weight="bold" size={`${RFValue(17)}px`}>
-            Faith
-          </MyText>
-        </Col>
-      </Row>
-      <Row></Row>
-    </Row>
+    <Box
+      hasShadow="0 0 30px #cdcdcd35"
+      hasRadius="20"
+      relative
+      bg="red"
+      wid="31%"
+      ht={`${wp(40)}px`}>
+      <Image
+        source={{
+          uri: 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+        }}
+        style={{
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          width: '100%',
+          height: '100%',
+        }}
+      />
+      <Box
+        absolute
+        bottom="5%"
+        left="5%"
+        bg="#ffffff"
+        hasRadius="100"
+        pad={`${wp(2)}px ${wp(6)}px`}>
+        <MyText weight="bold" size={`${RFValue(11)}px`}>
+          Test
+        </MyText>
+      </Box>
+    </Box>
   );
 };
 

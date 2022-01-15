@@ -8,7 +8,9 @@ const index = () => {
   return (
     <>
       <MainHeader />
-      <Container hasScroll pad={`${wp(12)}px ${wp(5)}px ${wp(2)}px ${wp(5)}px`}>
+      <Container
+        hasScroll
+        pad={`${wp(12)}px ${wp(5)}px ${wp(25)}px ${wp(5)}px`}>
         <FollowArtists />
         <RecentPlayed />
         <Discover />
