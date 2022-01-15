@@ -5,7 +5,7 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {Row, MyText, Icon, Col, Avatar, Box} from 'components';
 import RecentCard from './RecentCard';
 
-const RecentPlayed = () => {
+const RecentPlayed = ({navigation}) => {
   return (
     <Col noFlex>
       <Row noFlex center between>
@@ -20,8 +20,8 @@ const RecentPlayed = () => {
         </Row>
       </Row>
       <Col pad={`0 ${wp(2)}px`} marg={`${wp(8)}px 0`}>
-        <RecentCard />
-        <RecentCard />
+        <RecentCard navigation={navigation} />
+        <RecentCard navigation={navigation} />
       </Col>
     </Col>
   );
