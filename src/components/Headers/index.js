@@ -1,1 +1,1 @@
-export {MainHeader} from './MainHeader';
+export {default as MainHeader} from './MainHeader';

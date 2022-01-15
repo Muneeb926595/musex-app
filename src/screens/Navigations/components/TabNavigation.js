@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import TabBarItem from './TabBarItem';
+import {Home} from 'screens';
 import {registerToken} from 'store/auth/AuthActions';
 import {playBackgroundSound} from 'helpers';
 import {MyText} from 'components';
@@ -26,14 +27,6 @@ if (!firebase?.apps?.length) {
 
 const Tab = createBottomTabNavigator();
 
-const Fooder = () => {
-  return (
-    <MyText>
-      FooderHi there testing this new version of my app just a new testfor a
-      very long text
-    </MyText>
-  );
-};
 const RecipeHub = () => {
   return (
     <MyText>
@@ -60,7 +53,7 @@ const FoodAndI = () => {
 };
 
 const TabNav = ({navigation}) => {
-  const [activeMenu, setActiveMenu] = useState('Fooder');
+  const [activeMenu, setActiveMenu] = useState('Home');
   const dispatch = useDispatch();
   const userId = useSelector(({Foodbook}) => Foodbook.auth.user._id);
 
@@ -118,8 +111,8 @@ const TabNav = ({navigation}) => {
           keyboardHidesTabBar: true,
         }}>
         <Tab.Screen
-          name="Fooder"
-          component={Fooder}
+          name="Home"
+          component={Home}
           options={{
             tabBarButton: (props) => (
               <TabBarItem
@@ -127,10 +120,10 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                text="fooders"
-                navigateTo="Fooder"
+                text="Homes"
+                navigateTo="Home"
                 activeMenu={activeMenu}
-                icon="navigation-fooders"
+                icon="navigation-home"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
