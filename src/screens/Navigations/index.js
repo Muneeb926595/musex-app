@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {TabNav} from './components';
 import {Col} from 'components';
+import {Search} from 'screens';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,15 @@ const index = () => {
             </Col>
           )}
         </Stack.Screen>
+        <Stack.Screen
+          options={{
+            cardStyle: {
+              backgroundColor: '#ffffff',
+            },
+          }}
+          name="Search"
+          component={Search}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
