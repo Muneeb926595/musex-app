@@ -4,5 +4,6 @@ export const icons = {
   'right-arrow': require('./icons/right-arrow.png'),
   'rounded-cross': require('./icons/rounded-cross.png'),
   'header-search': require('./icons/header-search.png'),
+  'blue-back': require('./icons/blue-back.png'),
   'user-placeholder': require('./icons/user-placeholder.png'),
 };

@@ -2,9 +2,13 @@ import React from 'react';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Row, MyText, Avatar, Icon, Box} from 'components';
+import {Row, MyText, Avatar, Icon, Box, Clickable} from 'components';
 
-const MainHeader = () => {
+const MainHeader = ({navigation}) => {
+  const handlePressSearch = () => {
+    navigation.navigate('Search');
+  };
+
   return (
     <Row
       noFlex
@@ -23,9 +27,11 @@ const MainHeader = () => {
           Testing
         </MyText>
       </Row>
-      <Box border="1px #bdbdbd" pad={`${wp(2)}px`} hasRadius="100">
-        <Icon type="header-search" size={wp(4.6)} />
-      </Box>
+      <Clickable onClick={handlePressSearch}>
+        <Box border="1px #bdbdbd" pad={`${wp(2)}px`} hasRadius="100">
+          <Icon type="header-search" size={wp(4.6)} />
+        </Box>
+      </Clickable>
     </Row>
   );
 };
