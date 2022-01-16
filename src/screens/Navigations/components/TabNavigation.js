@@ -43,10 +43,10 @@ const Market = () => {
     </MyText>
   );
 };
-const FoodAndI = () => {
+const Settings = () => {
   return (
     <MyText>
-      FoodAndIHi there testing this new version of my app just a new testfor a
+      Settings there testing this new version of my app just a new testfor a
       very long text
     </MyText>
   );
@@ -130,10 +130,9 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                text="Homes"
                 navigateTo="Home"
                 activeMenu={activeMenu}
-                icon="navigation-home"
+                icon="home"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
@@ -150,12 +149,11 @@ const TabNav = ({navigation}) => {
               <TabBarItem
                 {...props}
                 tabNumber={1}
-                iconHt={wp(8)}
-                iconWid={wp(8)}
-                text="RecipeHub"
+                iconHt={wp(7)}
+                iconWid={wp(7)}
                 navigateTo="RecipeHub"
                 activeMenu={activeMenu}
-                icon="navigation-fooders"
+                icon="safari"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
@@ -174,10 +172,9 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                text="Market"
                 navigateTo="Market"
                 activeMenu={activeMenu}
-                icon="navigation-fooders"
+                icon="heart"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
@@ -187,8 +184,8 @@ const TabNav = ({navigation}) => {
           }}
         />
         <Tab.Screen
-          name="FoodAndI"
-          component={FoodAndI}
+          name="Settings"
+          component={Settings}
           options={{
             tabBarButton: (props) => (
               <TabBarItem
@@ -196,10 +193,9 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                text="FoodAndI"
-                navigateTo="FoodAndI"
+                navigateTo="Settings"
                 activeMenu={activeMenu}
-                icon="navigation-fooders"
+                icon="settings"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
