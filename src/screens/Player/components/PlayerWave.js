@@ -14,9 +14,7 @@ const PlayerWave = () => {
         3:20
       </MyText>
       <Row noFlex center>
-        <Icon type="header-search" size={wp(6)} />
-        <Icon type="header-search" size={wp(6)} />
-        <Icon type="header-search" size={wp(6)} />
+        <MyText>Here Goes My PLayer Timeline</MyText>
       </Row>
       <MyText
         marg={`0 0 ${wp(2)}px  0`}

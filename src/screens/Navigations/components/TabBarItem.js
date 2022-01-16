@@ -1,9 +1,8 @@
 import React from 'react';
-import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 import {TouchableOpacity} from 'react-native';
 
-import {MyText, Col, Icon} from 'components';
+import {Col, Icon} from 'components';
 
 const TabBarItem = (props) => {
   const {
@@ -21,6 +20,9 @@ const TabBarItem = (props) => {
   return (
     <Col centerAll>
       <TouchableOpacity
+        style={{
+          marginTop: wp(4),
+        }}
         onPress={() => {
           setActiveMenu(navigateTo);
           if (navigateTo === 'FoodandI') {
@@ -36,15 +38,6 @@ const TabBarItem = (props) => {
           height={iconHt}
         />
       </TouchableOpacity>
-      <MyText
-        Rubik
-        size={
-          activeMenu === 'RecipeHub' ? `${RFValue(9.5)}px` : `${RFValue(11)}px`
-        }
-        color={focused ? 'blue' : 'grey'}
-        weight="500">
-        {text}
-      </MyText>
     </Col>
   );
 };

@@ -13,3 +13,9 @@ const Application = () => {
 };
 
 export default Application;
+
+// app Colors
+// 3F70EC  -- >Blue
+// #ffffff  --> white
+// #000000  --> black
+//#9d9d9d  --> grey
