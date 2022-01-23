@@ -36,7 +36,7 @@ const index = ({navigation}) => {
   // }, []);
 
   const renderListItem = useCallback(
-    ({item}) => <SearchListItem item={item} />,
+    ({item}) => <SearchListItem item={item?.snippet} />,
     [],
   );
 
@@ -55,7 +55,10 @@ const index = ({navigation}) => {
     <Box pad={`${wp(12)}px ${wp(5)}px ${wp(25)}px ${wp(5)}px`}>
       <Search navigation={navigation} />
       <FlatList
-        data={searchResults?.items}
+        style={{
+          marginTop: wp(12),
+        }}
+        data={searchResults}
         keyExtractor={(item) => item.id}
         renderItem={renderListItem}
         // onEndReachedThreshold={0.7}

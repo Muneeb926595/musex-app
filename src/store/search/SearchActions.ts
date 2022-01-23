@@ -21,7 +21,6 @@ export const getSearchByPlayList = (page, limit, searchText) => {
     fetch(url)
       .then(async (response) => {
         const data = await response.json();
-        console.log('data', data);
         if (data?.items?.length > 0) {
           searchUsersSuccess(
             dispatch,
@@ -49,14 +48,14 @@ const searchUsersFail = (dispatch, errorMessage) => {
 };
 const searchUsersSuccess = (
   dispatch,
-  users,
+  searchResults,
   usersTotalPages,
   usersCurrentPage,
 ) => {
   dispatch({
     type: SearchActionTypes.SEARCH_BY_PLAYLIST_SUCCESS,
     payload: {
-      users,
+      searchResults,
       usersTotalPages,
       usersCurrentPage,
     },
