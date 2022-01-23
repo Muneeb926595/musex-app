@@ -11,7 +11,6 @@ const DiscoverCard = () => {
       hasShadow="0 0 30px #cdcdcd35"
       hasRadius="20"
       relative
-      bg="red"
       wid="31%"
       ht={`${wp(40)}px`}>
       <Image

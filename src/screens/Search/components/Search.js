@@ -1,14 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import {TextInput} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
+import {useDebounce} from 'hooks';
 import {Row, Icon, Clickable} from 'components';
+import {getSearchByPlayList} from 'store/search/SearchActions';
 
 const Search = ({navigation}) => {
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
+
   const handleResetSearch = () => {
     setSearchText('');
   };
+
+  useDebounce(
+    () => {
+      dispatch(getSearchByPlayList(1, 20, searchText));
+    },
+    [searchText],
+    1000,
+  );
 
   const goBack = () => {
     navigation.goBack();
@@ -43,4 +56,4 @@ const Search = ({navigation}) => {
   );
 };
 
-export default Search;
+export default memo(Search);
