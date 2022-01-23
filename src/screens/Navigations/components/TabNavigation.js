@@ -55,7 +55,7 @@ const Settings = () => {
 const TabNav = ({navigation}) => {
   const [activeMenu, setActiveMenu] = useState('Home');
   const dispatch = useDispatch();
-  const userId = useSelector(({Foodbook}) => Foodbook.auth.user._id);
+  const userId = useSelector(({Musex}) => Musex.auth.user._id);
 
   useEffect(() => {
     const handlePushNotifs = async () => {

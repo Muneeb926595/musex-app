@@ -5,5 +5,11 @@ declare global {
     user: User;
     loading?: boolean;
   }
+  interface SearchState {
+    searchResults: any;
+    totalPages: any;
+    currentPage: any;
+    loading?: boolean;
+  }
 }
-export {AuthState};
+export {AuthState, SearchState};
