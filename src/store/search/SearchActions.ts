@@ -17,10 +17,11 @@ export const searchSongs = (page, limit, searchText) => {
       searchText,
       REACT_APP_IS_YOUTUBE_API_KEY,
     );
-    console.log(url);
+
     fetch(url)
       .then(async (response) => {
         const data = await response.json();
+        console.log('data', data);
         if (data?.items?.length > 0) {
           searchSongsSuccess(
             dispatch,

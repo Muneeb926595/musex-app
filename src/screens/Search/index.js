@@ -36,7 +36,7 @@ const index = ({ navigation }) => {
   // }, []);
 
   const renderListItem = useCallback(
-    ({ item }) => <SearchListItem item={item?.snippet} />,
+    ({ item }) => <SearchListItem item={{ ...item?.snippet, video: item?.id?.videoId }} navigation={navigation} />,
     [],
   );
 
