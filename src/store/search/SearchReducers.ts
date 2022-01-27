@@ -16,7 +16,7 @@ const AuthReducer = (
   action: Action,
 ): SearchState => {
   switch (action.type) {
-    case SearchActionTypes.SEARCH_BY_PLAYLIST_START: {
+    case SearchActionTypes.SEARCH_SONGS_START: {
       if (action.payload.pageNo === 1) {
         state.searchResults = [];
         state.totalPages = '0';
@@ -27,7 +27,7 @@ const AuthReducer = (
         return {...state, loading: false};
       }
     }
-    case SearchActionTypes.SEARCH_BY_PLAYLIST_SUCCESS: {
+    case SearchActionTypes.SEARCH_SONGS_SUCCESS: {
       if (action.payload.currentPage === 1) {
         state.searchResults = [];
         return {
@@ -50,7 +50,7 @@ const AuthReducer = (
         };
       }
     }
-    case SearchActionTypes.SEARCH_BY_PLAYLIST_FAIL: {
+    case SearchActionTypes.SEARCH_SONGS_FAIL: {
       return {
         ...state,
         loading: false,
