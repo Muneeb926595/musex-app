@@ -1,20 +1,20 @@
-import {getSearchByPlayListUrl} from '../../api/Endpoint';
+import {getSearchSongsUrl} from '../../api/Endpoint';
 import {SearchActionTypes} from '../redux/actionTypes';
 import {REACT_APP_IS_YOUTUBE_API_KEY} from '@env';
 
-export const getSearchByPlayList = (page, limit, searchText) => {
+export const searchSongs = (page, limit, searchText) => {
   return (dispatch) => {
     dispatch({
-      type: SearchActionTypes.SEARCH_BY_PLAYLIST_START,
+      type: SearchActionTypes.SEARCH_SONGS_START,
       payload: {
         pageNo: page,
       },
     });
 
-    const url = getSearchByPlayListUrl(
+    const url = getSearchSongsUrl(
       page,
       limit,
-      'PL0QogTHgGHMVh26RRFstAPBpxa2ZTWIQL',
+      searchText,
       REACT_APP_IS_YOUTUBE_API_KEY,
     );
     console.log(url);
@@ -22,38 +22,38 @@ export const getSearchByPlayList = (page, limit, searchText) => {
       .then(async (response) => {
         const data = await response.json();
         if (data?.items?.length > 0) {
-          searchUsersSuccess(
+          searchSongsSuccess(
             dispatch,
             data?.items,
             data?.pageInfo?.totalResults,
             data?.pageInfo?.resultsPerPage,
           );
         } else {
-          searchUsersFail(dispatch, 'There was an error connection');
+          searchSongsFail(dispatch, 'There was an error connection');
         }
       })
       .catch((error) => {
-        searchUsersFail(dispatch, 'There was an error connection2');
+        searchSongsFail(dispatch, 'There was an error connection2');
       });
   };
 };
-const searchUsersFail = (dispatch, errorMessage) => {
+const searchSongsFail = (dispatch, errorMessage) => {
   console.log(errorMessage);
   dispatch({
-    type: SearchActionTypes.SEARCH_BY_PLAYLIST_FAIL,
+    type: SearchActionTypes.SEARCH_SONGS_FAIL,
     payload: {
       errorMessage,
     },
   });
 };
-const searchUsersSuccess = (
+const searchSongsSuccess = (
   dispatch,
   searchResults,
   usersTotalPages,
   usersCurrentPage,
 ) => {
   dispatch({
-    type: SearchActionTypes.SEARCH_BY_PLAYLIST_SUCCESS,
+    type: SearchActionTypes.SEARCH_SONGS_SUCCESS,
     payload: {
       searchResults,
       usersTotalPages,
