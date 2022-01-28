@@ -6,6 +6,7 @@ export const icons = {
   safari: require('./icons/safari.png'),
   repeat: require('./icons/repeat.png'),
   shuffle: require('./icons/shuffle.png'),
+  download: require('./icons/download.png'),
   settings: require('./icons/settings.png'),
   'sad-face': require('./icons/sad-face.png'),
   'white-dot': require('./icons/white-dot.png'),

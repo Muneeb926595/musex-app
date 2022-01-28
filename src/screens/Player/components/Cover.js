@@ -1,10 +1,10 @@
 import React from 'react';
-import { Image } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import {Image} from 'react-native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import { Box, Col, VideoPlayer } from 'components';
+import {Box, Col, YouTubeVideoPlayer} from 'components';
 
-const Cover = ({ youtubeVideoId }) => {
+const Cover = ({youtubeVideoId}) => {
   return (
     <Col centerAll>
       <Box
@@ -22,9 +22,10 @@ const Cover = ({ youtubeVideoId }) => {
             borderRadius: wp(5),
           }}
         /> */}
-        <VideoPlayer
-          width={wp(100)}
-          height={wp(90)}
+        <YouTubeVideoPlayer
+          width="100%"
+          height="100%"
+          marginBottom={wp(2)}
           youtubeVideoId={youtubeVideoId}
         />
       </Box>
