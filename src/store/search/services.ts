@@ -1,15 +1,19 @@
-// const filterOutDwonloadedSongs = async () => {
-//   let downloadedSongs = await Utils.getSongsFromStorage();
-//   return _.map(songs, (song) => {
-//     let findedSong = _.findWhere(downloadedSongs, {id: song.id});
-//     if (findedSong) {
-//       findedSong.downloaded = true;
-//       return findedSong;
-//     }
+import {StorageHelper} from 'helpers';
 
-//     return song;
-//   });
-// };
+export const filterOutDwonloadedSongs = async (songs) => {
+  let downloadedSongs = await getSongsFromStorage();
+  return songs?.map((song) => {
+    const songFound = downloadedSongs.find(
+      (downloadedSong) => downloadedSong.id === song.id,
+    );
+    if (songFound) {
+      songFound.downloaded = true;
+      return songFound;
+    }
+
+    return song;
+  });
+};
 
 export const formateSearchResults = (searchData) => {
   return searchData.items.map((item) => {
@@ -17,8 +21,21 @@ export const formateSearchResults = (searchData) => {
       id: item.id.videoId,
       artist: item.snippet.channelTitle,
       title: item.snippet.title,
-      thumb: item.snippet.thumbnails.default.url,
+      thumb: item.snippet.thumbnails.high.url,
       //   path: getSongUrl(item.id.videoId),
     };
   });
+};
+
+export const getSongsFromStorage = async () => {
+  let songs = await StorageHelper.getItem(StorageHelper.StorageKeys.SONGS);
+  songs = songs || JSON.stringify([]);
+  return JSON.parse(songs);
+};
+
+export const getSongFromStorage = async (id) => {
+  let songs = await StorageHelper.getItem(StorageHelper.StorageKeys.SONGS);
+  songs = songs || JSON.stringify([]);
+  const song = JSON.parse(songs).find((song) => song.id === id);
+  return song;
 };

@@ -13,7 +13,7 @@ const DOWNLOADING_STATES = {
 
 const SearchListItem = ({item, navigation}) => {
   const [downloading, setDownloading] = useState(DOWNLOADING_STATES.INTITAL);
-  console.log('item', item);
+
   const handleClick = () => {
     navigation.navigate('Player', {youtubeVideoId: item?.id});
   };
@@ -28,7 +28,7 @@ const SearchListItem = ({item, navigation}) => {
       alert('something went wrong');
     };
 
-    downloadMusic('', successCallback, errorCallback);
+    downloadMusic(item, successCallback, errorCallback);
   };
 
   return (
@@ -57,7 +57,7 @@ const SearchListItem = ({item, navigation}) => {
             {item?.title}
           </MyText>
         </Row>
-        {downloading === DOWNLOADING_STATES.INTITAL ? (
+        {downloading === DOWNLOADING_STATES.INTITAL && !item?.downloaded ? (
           <Clickable onClick={handelDownload}>
             <Icon type="download" size={wp(5)} />
           </Clickable>

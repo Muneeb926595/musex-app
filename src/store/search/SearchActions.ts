@@ -2,7 +2,7 @@ import {getSearchSongsUrl} from '../../api/Endpoint';
 import {SearchActionTypes} from '../redux/actionTypes';
 import {REACT_APP_IS_YOUTUBE_API_KEY} from '@env';
 
-import {formateSearchResults} from './services';
+import {formateSearchResults, filterOutDwonloadedSongs} from './services';
 
 export const searchSongs = (limit, searchText) => {
   return (dispatch) => {
@@ -21,11 +21,12 @@ export const searchSongs = (limit, searchText) => {
       .then(async (response) => {
         const searchData = await response.json();
 
-        const filterResults = formateSearchResults(searchData);
+        const filterResults = await filterOutDwonloadedSongs(
+          formateSearchResults(searchData),
+        );
 
-        console.log('searchData', searchData);
         console.log('filterResults', filterResults);
-        if (filterResults.length > 0) {
+        if (filterResults?.length > 0) {
           searchSongsSuccess(dispatch, filterResults);
         } else {
           searchSongsFail(dispatch, 'There was an error connection');

@@ -5,6 +5,7 @@ const StorageKeys = {
   Access_Token: 'access_token',
   Deactivated: 'deactivated',
   DeactivatedDate: 'deactivatedDate',
+  SONGS: 'SONGS',
 };
 
 async function saveItem(key, value) {
