@@ -3,8 +3,6 @@ import {SearchState} from '../redux/state';
 
 const INITIAL_STATE: SearchState = {
   searchResults: {},
-  totalPages: 0,
-  currentPage: 0,
   loading: false,
 };
 interface Action {
@@ -17,38 +15,15 @@ const AuthReducer = (
 ): SearchState => {
   switch (action.type) {
     case SearchActionTypes.SEARCH_SONGS_START: {
-      if (action.payload.pageNo === 1) {
-        state.searchResults = [];
-        state.totalPages = '0';
-        state.currentPage = 0;
-        state.loading = false;
-        return {...state, loading: true};
-      } else {
-        return {...state, loading: false};
-      }
+      return {...state, loading: true};
     }
     case SearchActionTypes.SEARCH_SONGS_SUCCESS: {
-      if (action.payload.currentPage === 1) {
-        state.searchResults = [];
-        return {
-          ...state,
-          searchResults: action.payload.searchResults,
-          totalPages: action.payload.totalPages,
-          currentPage: action.payload.currentPage,
-          loading: false,
-        };
-      } else {
-        return {
-          ...state,
-          searchResults: [
-            ...state.searchResults,
-            ...action.payload.searchResults,
-          ],
-          totalPages: action.payload.totalPages,
-          currentPage: action.payload.currentPage,
-          loading: false,
-        };
-      }
+      state.searchResults = [];
+      return {
+        ...state,
+        searchResults: action.payload.searchResults,
+        loading: false,
+      };
     }
     case SearchActionTypes.SEARCH_SONGS_FAIL: {
       return {

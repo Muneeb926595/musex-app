@@ -7,8 +7,6 @@ declare global {
   }
   interface SearchState {
     searchResults: any;
-    totalPages: any;
-    currentPage: any;
     loading?: boolean;
   }
 }

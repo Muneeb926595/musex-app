@@ -1,2 +1,8 @@
-export { default as StorageHelper } from './StorageHelper'
-export { getLastPostDuration, getTimeDuration, mmss, covertMiliToDays } from "./timeDateUtils"
+export {default as StorageHelper} from './StorageHelper';
+export {
+  getLastPostDuration,
+  getTimeDuration,
+  mmss,
+  covertMiliToDays,
+} from './timeDateUtils';
+export {downloadMusic} from './songs';
