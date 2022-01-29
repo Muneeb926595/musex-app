@@ -5,3 +5,4 @@ export {
   mmss,
   covertMiliToDays,
 } from './timeDateUtils';
+export {downloadMusic} from './songs';

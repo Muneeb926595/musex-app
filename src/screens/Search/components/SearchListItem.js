@@ -1,16 +1,34 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, Clickable, MyText, PostImage, Icon} from 'components';
+import {downloadMusic} from 'helpers';
+
+const DOWNLOADING_STATES = {
+  INTITAL: 'initial',
+  DOWNLOAING: 'downloading',
+  DOWNLOADED: 'downloaded',
+};
 
 const SearchListItem = ({item, navigation}) => {
+  const [downloading, setDownloading] = useState(DOWNLOADING_STATES.INTITAL);
+  console.log('item', item);
   const handleClick = () => {
-    navigation.navigate('Player', {youtubeVideoId: item?.video});
+    navigation.navigate('Player', {youtubeVideoId: item?.id});
   };
 
   const handelDownload = () => {
-    // dispatch(downloadSong());
+    setDownloading(DOWNLOADING_STATES.DOWNLOAING);
+    const successCallback = () => {
+      setDownloading(DOWNLOADING_STATES.DOWNLOADED);
+    };
+    const errorCallback = () => {
+      setDownloading(DOWNLOADING_STATES.INTITAL);
+      alert('something went wrong');
+    };
+
+    downloadMusic('', successCallback, errorCallback);
   };
 
   return (
@@ -29,7 +47,7 @@ const SearchListItem = ({item, navigation}) => {
           <PostImage
             width={wp(16)}
             height={wp(16)}
-            uri={item?.thumbnails?.default?.url}
+            uri={item?.thumb}
             borderRadius={20}
           />
           <MyText
@@ -39,9 +57,13 @@ const SearchListItem = ({item, navigation}) => {
             {item?.title}
           </MyText>
         </Row>
-        <Clickable onClick={handelDownload}>
-          <Icon type="download" size={wp(5)} />
-        </Clickable>
+        {downloading === DOWNLOADING_STATES.INTITAL ? (
+          <Clickable onClick={handelDownload}>
+            <Icon type="download" size={wp(5)} />
+          </Clickable>
+        ) : (
+          <MyText>Donwloading</MyText>
+        )}
       </Row>
     </Clickable>
   );

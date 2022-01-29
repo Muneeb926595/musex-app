@@ -1,13 +1,13 @@
-import React, { useState, memo } from 'react';
-import { TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import React, {useState, memo} from 'react';
+import {TextInput} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import { useDebounce } from 'hooks';
-import { Row, Icon, Clickable } from 'components';
-import { searchSongs } from 'store/search/SearchActions';
+import {useDebounce} from 'hooks';
+import {Row, Icon, Clickable} from 'components';
+import {searchSongs} from 'store/search/SearchActions';
 
-const Search = ({ navigation }) => {
+const Search = ({navigation}) => {
   const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
 
@@ -17,7 +17,7 @@ const Search = ({ navigation }) => {
 
   useDebounce(
     () => {
-      dispatch(searchSongs(1, 20, searchText));
+      dispatch(searchSongs(40, searchText));
     },
     [searchText],
     1000,
@@ -41,7 +41,7 @@ const Search = ({ navigation }) => {
         marg={`0 ${wp(2)}px 0 0`}
         pad={`${wp(3)}px ${wp(4)}px`}>
         <TextInput
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           value={searchText}
           placeholder="Search"
           onChangeText={(value) => setSearchText(value)}

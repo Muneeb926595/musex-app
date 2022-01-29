@@ -2,17 +2,16 @@ import {getSearchSongsUrl} from '../../api/Endpoint';
 import {SearchActionTypes} from '../redux/actionTypes';
 import {REACT_APP_IS_YOUTUBE_API_KEY} from '@env';
 
-export const searchSongs = (page, limit, searchText) => {
+import {formateSearchResults} from './services';
+
+export const searchSongs = (limit, searchText) => {
   return (dispatch) => {
     dispatch({
       type: SearchActionTypes.SEARCH_SONGS_START,
-      payload: {
-        pageNo: page,
-      },
+      payload: {},
     });
 
     const url = getSearchSongsUrl(
-      page,
       limit,
       searchText,
       REACT_APP_IS_YOUTUBE_API_KEY,
@@ -20,15 +19,14 @@ export const searchSongs = (page, limit, searchText) => {
 
     fetch(url)
       .then(async (response) => {
-        const data = await response.json();
-        console.log('data', data);
-        if (data?.items?.length > 0) {
-          searchSongsSuccess(
-            dispatch,
-            data?.items,
-            data?.pageInfo?.totalResults,
-            data?.pageInfo?.resultsPerPage,
-          );
+        const searchData = await response.json();
+
+        const filterResults = formateSearchResults(searchData);
+
+        console.log('searchData', searchData);
+        console.log('filterResults', filterResults);
+        if (filterResults.length > 0) {
+          searchSongsSuccess(dispatch, filterResults);
         } else {
           searchSongsFail(dispatch, 'There was an error connection');
         }
@@ -47,18 +45,11 @@ const searchSongsFail = (dispatch, errorMessage) => {
     },
   });
 };
-const searchSongsSuccess = (
-  dispatch,
-  searchResults,
-  usersTotalPages,
-  usersCurrentPage,
-) => {
+const searchSongsSuccess = (dispatch, searchResults) => {
   dispatch({
     type: SearchActionTypes.SEARCH_SONGS_SUCCESS,
     payload: {
       searchResults,
-      usersTotalPages,
-      usersCurrentPage,
     },
   });
 };
