@@ -13,7 +13,7 @@ const DOWNLOADING_STATES = {
 
 const SearchListItem = ({item, navigation}) => {
   const [downloading, setDownloading] = useState(DOWNLOADING_STATES.INTITAL);
-  console.log('item', item);
+
   const handleClick = () => {
     navigation.navigate('Player', {youtubeVideoId: item?.id});
   };
@@ -28,7 +28,7 @@ const SearchListItem = ({item, navigation}) => {
       alert('something went wrong');
     };
 
-    downloadMusic('', successCallback, errorCallback);
+    downloadMusic(item, successCallback, errorCallback);
   };
 
   return (

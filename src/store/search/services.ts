@@ -21,7 +21,7 @@ export const formateSearchResults = (searchData) => {
       id: item.id.videoId,
       artist: item.snippet.channelTitle,
       title: item.snippet.title,
-      thumb: item.snippet.thumbnails.default.url,
+      thumb: item.snippet.thumbnails.high.url,
       //   path: getSongUrl(item.id.videoId),
     };
   });
