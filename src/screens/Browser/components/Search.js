@@ -1,35 +1,34 @@
-import React, {useState, useEffect, memo} from 'react';
+import React, {useState, memo} from 'react';
 import {TextInput} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
+import {useDebounce} from 'hooks';
 import {Row, Icon, Clickable} from 'components';
+import {searchSongs} from 'store/search/SearchActions';
 
-const Search = ({navigation, songs, handleSearch}) => {
+const Search = () => {
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState('');
-
-  useEffect(() => {
-    handleSearch(searchText);
-  }, [searchText, songs]);
 
   const handleResetSearch = () => {
     setSearchText('');
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
+  useDebounce(
+    () => {
+      dispatch(searchSongs(40, searchText));
+    },
+    [searchText],
+    1000,
+  );
 
   return (
     <Row noFlex center marg={`${wp(3)}px 0 0 0`}>
-      <Clickable
-        pad={`${wp(2)}px ${wp(2)}px ${wp(2)}px ${wp(1)}px `}
-        onClick={goBack}>
-        <Icon type="blue-back" size={wp(5)} />
-      </Clickable>
       <Row
         bg="#ffffff"
         hasShadow="0 0 10px #cdcdcdf4"
-        hasRadius="20"
+        hasRadius="8"
         marg={`0 ${wp(2)}px 0 0`}
         pad={`${wp(3)}px ${wp(4)}px`}>
         <TextInput
