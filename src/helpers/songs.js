@@ -35,7 +35,7 @@ export const downloadMusic = async (song, navigation) => {
     })
     .then(async (stat) => {
       let downloadableURL = await ytdl(youtubeVideoUrl, {
-        quality: 'lowestvideo',
+        quality: 'highestvideo',
       });
       downloadableURL = downloadableURL?.[0];
       const {url, headers} = downloadableURL;

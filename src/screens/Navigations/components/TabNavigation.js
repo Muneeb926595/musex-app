@@ -174,7 +174,7 @@ const TabNav = ({navigation}) => {
                 iconWid={wp(8)}
                 navigateTo="Market"
                 activeMenu={activeMenu}
-                icon="heart"
+                icon="music-library"
                 focused={props.focused}
                 navigation={navigation}
                 setActiveMenu={setActiveMenu}
