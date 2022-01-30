@@ -6,7 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import TabBarItem from './TabBarItem';
-import {Home} from 'screens';
+import {Home, Browser} from 'screens';
 import {registerToken} from 'store/auth/AuthActions';
 import {playBackgroundSound} from 'helpers';
 import {MyText} from 'components';
@@ -27,14 +27,6 @@ if (!firebase?.apps?.length) {
 
 const Tab = createBottomTabNavigator();
 
-const RecipeHub = () => {
-  return (
-    <MyText>
-      RecipeHub Hi there testing this new version of my app just a new testfor a
-      very long text
-    </MyText>
-  );
-};
 const Market = () => {
   return (
     <MyText>
@@ -142,8 +134,8 @@ const TabNav = ({navigation}) => {
           }}
         />
         <Tab.Screen
-          name="RecipeHub"
-          component={RecipeHub}
+          name="Browser"
+          component={Browser}
           options={{
             tabBarButton: (props) => (
               <TabBarItem
@@ -151,7 +143,7 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(7)}
                 iconWid={wp(7)}
-                navigateTo="RecipeHub"
+                navigateTo="Browser"
                 activeMenu={activeMenu}
                 icon="safari"
                 focused={props.focused}

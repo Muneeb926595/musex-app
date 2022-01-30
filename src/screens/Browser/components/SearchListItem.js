@@ -3,6 +3,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, Clickable, MyText, PostImage} from 'components';
+import DownloadButton from './DownloadButton';
 
 const SearchListItem = ({item, navigation}) => {
   const handleClick = () => {
@@ -35,6 +36,7 @@ const SearchListItem = ({item, navigation}) => {
             {item?.title}
           </MyText>
         </Row>
+        <DownloadButton item={item} />
       </Row>
     </Clickable>
   );
