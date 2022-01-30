@@ -5,17 +5,18 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {MyText, Box} from 'components';
 
-const DiscoverCard = () => {
+const DiscoverCard = ({item}) => {
   return (
     <Box
       hasShadow="0 0 30px #cdcdcd35"
       hasRadius="20"
       relative
-      wid="31%"
-      ht={`${wp(40)}px`}>
+      wid={`${wp(32)}px`}
+      marg={`0 ${wp(4)}px 0 0`}
+      ht={`${wp(42)}px`}>
       <Image
         source={{
-          uri: 'https://images.unsplash.com/photo-1503443207922-dff7d543fd0e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWVufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
+          uri: item?.thumb,
         }}
         style={{
           borderTopLeftRadius: wp(5),
@@ -32,7 +33,7 @@ const DiscoverCard = () => {
         hasRadius="100"
         pad={`${wp(2)}px ${wp(6)}px`}>
         <MyText weight="bold" size={`${RFValue(11)}px`}>
-          Test
+          {item?.title?.toString()?.substring(0, 10)}
         </MyText>
       </Box>
     </Box>

@@ -3,6 +3,7 @@ import {SearchState} from '../redux/state';
 
 const INITIAL_STATE: SearchState = {
   searchResults: {},
+  discoverResults: {},
   loading: false,
 };
 interface Action {
@@ -26,6 +27,23 @@ const AuthReducer = (
       };
     }
     case SearchActionTypes.SEARCH_SONGS_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case SearchActionTypes.GET_DISCOVER_SONGS_START: {
+      return {...state, loading: true};
+    }
+    case SearchActionTypes.GET_DISCOVER_SONGS_SUCCESS: {
+      state.discoverResults = [];
+      return {
+        ...state,
+        discoverResults: action.payload.discoverResults,
+        loading: false,
+      };
+    }
+    case SearchActionTypes.GET_DISCOVER_SONGS_FAIL: {
       return {
         ...state,
         loading: false,
