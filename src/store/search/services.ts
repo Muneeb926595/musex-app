@@ -39,3 +39,13 @@ export const getSongFromStorage = async (id) => {
   const song = JSON.parse(songs).find((song) => song.id === id);
   return song;
 };
+
+export const setSongsToStorage = async (song) => {
+  let storageSongs = await getSongsFromStorage();
+  console.log('got this', storageSongs);
+  let newSongs = [...storageSongs, song];
+  StorageHelper.saveItem(
+    StorageHelper.StorageKeys.SONGS,
+    JSON.stringify(newSongs),
+  ).then(() => console.log('saved'));
+};

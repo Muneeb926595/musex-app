@@ -57,7 +57,9 @@ const SearchListItem = ({item, navigation}) => {
             {item?.title}
           </MyText>
         </Row>
-        {downloading === DOWNLOADING_STATES.INTITAL && !item?.downloaded ? (
+        {item?.downloaded ? (
+          <></>
+        ) : downloading === DOWNLOADING_STATES.INTITAL && !item?.downloaded ? (
           <Clickable onClick={handelDownload}>
             <Icon type="download" size={wp(5)} />
           </Clickable>
