@@ -12,11 +12,9 @@ const Cover = ({item}) => {
         ht={`${wp(80)}px`}
         hasShadow="0 8px 20px #adadcd90"
         hadRadius="20">
-        {true ? (
+        {item?.path ? (
           <VideoPlayer
-            uri={
-              '/Users/mymac/Library/Developer/CoreSimulator/Devices/09BB13B0-9667-4E24-8E6E-441E0BAE41CB/data/Containers/Data/Application/A8EB9687-5633-4F6D-AB40-20EE7B784947/Documents/RcQ4o1WI2ms.webm'
-            }
+            uri={item?.path}
             width="100%"
             height="100%"
             marginBottom={wp(2)}

@@ -12,7 +12,6 @@ const VideoPlayer = ({
   marginRight,
 }) => {
   const videoRef = useRef();
-
   return (
     <Video
       source={{uri: uri}}

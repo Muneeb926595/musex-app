@@ -19,6 +19,7 @@ export const searchSongs = (limit, searchText) => {
 
     fetch(url)
       .then(async (response) => {
+        console.log('response', response);
         const searchData = await response.json();
         const filterResults = await filterOutDwonloadedSongs(
           formateSearchResults(searchData),

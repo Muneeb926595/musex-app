@@ -2,7 +2,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {Platform} from 'react-native';
 import ytdl from 'react-native-ytdl';
 
-import {getSongsFromStorage} from 'store/search/services';
+import {getSongsFromStorage, setSongsToStorage} from 'store/search/services';
 
 export const downloadMusic = async (song, navigation) => {
   //check if song already exists in local storage
@@ -20,10 +20,6 @@ export const downloadMusic = async (song, navigation) => {
 
   const youtubeVideoUrl = `https://www.youtube.com/watch?v=${song?.id}`;
 
-  RNFetchBlob.fs.ls(PATH_TO_LIST).then((files) => {
-    console.log(files);
-  });
-
   RNFetchBlob.fs
     .exists(tmpPath)
     .then((ext) => {
@@ -39,7 +35,7 @@ export const downloadMusic = async (song, navigation) => {
     })
     .then(async (stat) => {
       let downloadableURL = await ytdl(youtubeVideoUrl, {
-        quality: 'highestaudio',
+        quality: 'lowestvideo',
       });
       downloadableURL = downloadableURL?.[0];
       const {url, headers} = downloadableURL;
@@ -87,8 +83,7 @@ export const downloadMusic = async (song, navigation) => {
         path: `${dirs.DocumentDir}/${song.id}.jpg`,
       }).fetch('GET', song.thumb, {});
       song.thumb = imgRes.path();
-      console.log('download success', stat, song);
-      navigation.navigate('Player', {item: song});
+      setSongsToStorage(song);
     })
     .catch((err) => {
       console.log('download error', err);
