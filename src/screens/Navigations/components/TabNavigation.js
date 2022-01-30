@@ -1,14 +1,10 @@
 import firebase from '@react-native-firebase/app';
-import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import messaging from '@react-native-firebase/messaging';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import TabBarItem from './TabBarItem';
 import {Home, Browser} from 'screens';
-import {registerToken} from 'store/auth/AuthActions';
-import {playBackgroundSound} from 'helpers';
 import {MyText} from 'components';
 
 const firebaseConfig = {
@@ -46,54 +42,6 @@ const Settings = () => {
 
 const TabNav = ({navigation}) => {
   const [activeMenu, setActiveMenu] = useState('Home');
-  const dispatch = useDispatch();
-  const userId = useSelector(({Musex}) => Musex.auth.user._id);
-
-  useEffect(() => {
-    const handlePushNotifs = async () => {
-      if (userId) {
-        const authStatus = await messaging().requestPermission();
-
-        messaging()
-          .getToken()
-          .then((deviceToken) => {
-            dispatch(registerToken(deviceToken, userId));
-          });
-
-        messaging().onMessage((message) => {
-          const {title, body} = message.notification;
-
-          if (
-            title === 'Feed By' ||
-            title?.includes('feed by') ||
-            body?.includes('feed by')
-          ) {
-            //user send follow request don't play sound
-          } else {
-            playBackgroundSound('push_notification.aac');
-          }
-        });
-
-        messaging().onNotificationOpenedApp((remoteMessage) => {
-          console.log('Notification caused app to open from background state');
-          navigation.navigate('TabNav');
-        });
-
-        messaging()
-          .getInitialNotification()
-          .then((remoteMessage) => {
-            console.log('Notification caused app to open from quit state');
-            navigation.navigate('TabNav');
-            navigation.reset({
-              index: 0,
-              routesName: [{name: 'TabNav'}],
-            });
-          });
-      }
-    };
-
-    handlePushNotifs();
-  }, [userId]);
 
   return (
     <React.Fragment>
