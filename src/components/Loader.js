@@ -1,26 +1,17 @@
-import React from "react";
-import { View, Image } from "react-native";
-import loading from "assets/gifs/loading.gif";
-function Loader() {
+import React from 'react';
+import {ActivityIndicator} from 'react-native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+
+const Loader = () => {
   return (
-    <View
+    <ActivityIndicator
+      animating={true}
+      color="#3F70EC"
       style={{
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-        width: 40,
-        height: 40,
+        width: wp(5),
+        height: wp(5),
       }}
-    >
-      <Image
-        source={loading}
-        style={{
-          alignSelf: "center",
-          width: 50,
-          height: 50,
-        }}
-      />
-    </View>
+    />
   );
-}
+};
 export default Loader;

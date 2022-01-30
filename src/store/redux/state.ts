@@ -7,6 +7,7 @@ declare global {
   }
   interface SearchState {
     searchResults: any;
+    discoverResults: any;
     loading?: boolean;
   }
 }

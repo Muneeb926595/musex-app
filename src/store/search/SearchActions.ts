@@ -54,3 +54,52 @@ const searchSongsSuccess = (dispatch, searchResults) => {
     },
   });
 };
+
+export const getDiscoverSongs = (limit, searchText) => {
+  return (dispatch) => {
+    dispatch({
+      type: SearchActionTypes.GET_DISCOVER_SONGS_START,
+      payload: {},
+    });
+
+    const url = getSearchSongsUrl(
+      limit,
+      searchText,
+      REACT_APP_IS_YOUTUBE_API_KEY,
+    );
+
+    fetch(url)
+      .then(async (response) => {
+        const searchData = await response.json();
+        const filterResults = await filterOutDwonloadedSongs(
+          formateSearchResults(searchData),
+        );
+
+        if (filterResults?.length > 0) {
+          getDiscoverSongsSuccess(dispatch, filterResults);
+        } else {
+          getDiscoverSongsFail(dispatch, 'There was an error connection');
+        }
+      })
+      .catch((error) => {
+        getDiscoverSongsFail(dispatch, error);
+      });
+  };
+};
+const getDiscoverSongsFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: SearchActionTypes.GET_DISCOVER_SONGS_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const getDiscoverSongsSuccess = (dispatch, discoverResults) => {
+  dispatch({
+    type: SearchActionTypes.GET_DISCOVER_SONGS_SUCCESS,
+    payload: {
+      discoverResults,
+    },
+  });
+};
