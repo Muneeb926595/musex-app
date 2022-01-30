@@ -2,16 +2,24 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {Platform} from 'react-native';
 import {getSongsFromStorage} from 'store/search/services';
 
-export const downloadMusic = (song) => {
+export const downloadMusic = async (song) => {
+  //check if song already exists in local storage
+  let songs = await getSongsFromStorage();
+  const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
+  if (alreadyFoundInStorage) return {};
+
+  //download if song dosen't exists in local storage
   const {
     fs: {dirs},
   } = RNFetchBlob;
   const PATH_TO_LIST = dirs.DocumentDir;
   const dest = `${PATH_TO_LIST}/${song.title}.mp4`;
   const tmpPath = `${dest}.download`;
+
   RNFetchBlob.fs.ls(PATH_TO_LIST).then((files) => {
     console.log(files);
   });
+
   RNFetchBlob.fs
     .exists(tmpPath)
     .then((ext) => {
@@ -26,19 +34,20 @@ export const downloadMusic = (song) => {
       return Promise.resolve({size: 0});
     })
     .then(async (stat) => {
-      const file = await RNFetchBlob.config({
+      const songRes = await RNFetchBlob.config({
         IOSBackgroundTask: true, // required for both upload
         IOSDownloadTask: true, // Use instead of IOSDownloadTask if uploading
         path: Platform.OS === 'android' ? tmpPath : dest,
         fileCache: true,
       })
-        .fetch('GET', 'https://www.youtube.com/watch?v=ZawBD4JKw3E', {
+        .fetch('GET', `https://www.youtube.com/watch?v=${song?.id}`, {
           Range: Platform.OS === 'android' ? `bytes=${stat.size}-` : '',
         })
         .progress((receivedStr, totalStr) => {
           // Do any things
           console.log('download progress', receivedStr, totalStr);
         });
+      song.path = songRes.path();
     })
     .then((file) => {
       if (Platform.OS === 'android') {
@@ -57,8 +66,11 @@ export const downloadMusic = (song) => {
       return RNFetchBlob.fs.stat(dest);
     })
     .then(async (stat) => {
-      console.log('download success', stat);
-      // Downloaded successfully
+      const imgRes = await RNFetchBlob.config({
+        path: `${dirs.DocumentDir}/${song.title}.jpg`,
+      }).fetch('GET', song.thumb, {});
+      song.thumb = imgRes.path();
+      console.log('download success', song);
     })
     .catch((err) => {
       console.log('download error', err);
@@ -91,9 +103,6 @@ export const downloadMusic = (song) => {
 
 // export const downloadMusic = async (song) => {
 //   try {
-//     let songs = await getSongsFromStorage();
-//     const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
-//     if (alreadyFoundInStorage) return {};
 
 //     let dirs = RNFetchBlob.fs.dirs;
 //     let songInfo = {url: 'https://www.youtube.com/watch?v=ZawBD4JKw3E'};
@@ -104,17 +113,9 @@ export const downloadMusic = (song) => {
 //       .progress((received, total) => {
 //         console.log(received / total, song.id);
 //       });
-//     const imgRes = await RNFetchBlob.config({
-//       path: `${dirs.DocumentDir}/${song.id}.jpg`,
-//     }).fetch('GET', song.thumb, {});
-//     console.log('got the song', song);
-//     song.path = songRes.path();
-//     song.thumb = imgRes.path();
+
 //     let updatedSongs = await Utils.setSongsToStorage(
 //       DOWNLOADED_SONGS,
 //       recover,
 //     );
-//   } catch (err) {
-//     console.log(err);
-//   }
 // };
