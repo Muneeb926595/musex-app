@@ -8,7 +8,7 @@ import {getSongsFromStorage} from 'store/search/services';
 
 const RecentlyDownloaded = ({navigation}) => {
   const [songs, setSongs] = useState([]);
-  console.log('songs', songs);
+
   useEffect(() => {
     const getSongsList = async () => {
       const tempList = await getSongsFromStorage();
@@ -48,22 +48,28 @@ const RecentlyDownloaded = ({navigation}) => {
         </Row>
       </Row>
       <Row noFlex center between marg={`${wp(8)}px 0`}>
-        <FlatList
-          style={{
-            width: '100%',
-          }}
-          horizontal
-          data={songs}
-          snapToAlignment="center"
-          decelerationRate="normal"
-          keyExtractor={keyExtractor}
-          renderItem={renderListItem}
-          showsHorizontalScrollIndicator={false}
-          listKey={(item2, index) => 'D' + index.toString()}
-          windowSize={5} //Optimization
-          initialNumToRender={3} //Optimization
-          maxToRenderPerBatch={4} //Optimization
-        />
+        {songs?.length > 0 ? (
+          <FlatList
+            style={{
+              width: '100%',
+            }}
+            horizontal
+            data={songs}
+            snapToAlignment="center"
+            decelerationRate="normal"
+            keyExtractor={keyExtractor}
+            renderItem={renderListItem}
+            showsHorizontalScrollIndicator={false}
+            listKey={(item2, index) => 'D' + index.toString()}
+            windowSize={5} //Optimization
+            initialNumToRender={3} //Optimization
+            maxToRenderPerBatch={4} //Optimization
+          />
+        ) : (
+          <MyText weight="300" color="#9d9d9d">
+            Nothing Found
+          </MyText>
+        )}
       </Row>
     </Col>
   );

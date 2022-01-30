@@ -4,7 +4,13 @@ import ytdl from 'react-native-ytdl';
 
 import {getSongsFromStorage, setSongsToStorage} from 'store/search/services';
 
-export const downloadMusic = async (song, navigation) => {
+export const downloadMusic = async (
+  song,
+  handleStartDownloading,
+  handleDownloadProgress,
+  successCallback,
+  errorCallback,
+) => {
   //check if song already exists in local storage
   let songs = await getSongsFromStorage();
   const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
@@ -40,6 +46,8 @@ export const downloadMusic = async (song, navigation) => {
       downloadableURL = downloadableURL?.[0];
       const {url, headers} = downloadableURL;
 
+      handleStartDownloading();
+
       const songRes = await RNFetchBlob.config({
         IOSBackgroundTask: true, // required for both upload
         IOSDownloadTask: true, // Use instead of IOSDownloadTask if uploading
@@ -49,7 +57,9 @@ export const downloadMusic = async (song, navigation) => {
       })
         .fetch('GET', url, headers)
         .progress((received, total) => {
-          console.log('progress', (received * (0 + 1)) / (total * 1));
+          const progress = (received * (0 + 1)) / (total * 1);
+          handleDownloadProgress(Math.floor(progress * 100));
+          console.log('progress', progress * 100);
         })
         .catch((err) => console.error(`Could not save:"${path}" Reason:`, err));
 
@@ -84,8 +94,10 @@ export const downloadMusic = async (song, navigation) => {
       }).fetch('GET', song.thumb, {});
       song.thumb = imgRes.path();
       setSongsToStorage(song);
+      successCallback();
     })
     .catch((err) => {
       console.log('download error', err);
+      errorCallback();
     });
 };

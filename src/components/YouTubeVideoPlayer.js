@@ -9,6 +9,7 @@ const YouTubeVideoPlayer = ({
   youtubeVideoId,
   marginBottom,
   marginTop,
+  borderRadius,
 }) => {
   return (
     <YouTube
