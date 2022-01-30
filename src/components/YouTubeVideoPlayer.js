@@ -26,7 +26,7 @@ const YouTubeVideoPlayer = ({
         height: height ? height : size || 25,
         marginTop: marginTop || 1,
         marginBottom: marginBottom,
-        borderRadius: wp(5),
+        borderRadius: borderRadius ? borderRadius : 0,
         alignSelf: 'center',
         borderColor: 'white',
       }}

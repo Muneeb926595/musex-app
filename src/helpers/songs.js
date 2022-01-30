@@ -4,7 +4,7 @@ import ytdl from 'react-native-ytdl';
 
 import {getSongsFromStorage} from 'store/search/services';
 
-export const downloadMusic = async (song) => {
+export const downloadMusic = async (song, navigation) => {
   //check if song already exists in local storage
   let songs = await getSongsFromStorage();
   const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
@@ -15,7 +15,7 @@ export const downloadMusic = async (song) => {
     fs: {dirs},
   } = RNFetchBlob;
   const PATH_TO_LIST = dirs.DocumentDir;
-  let dest = `${PATH_TO_LIST}/${song.title}`;
+  let dest = `${PATH_TO_LIST}/${song.id}`;
   const tmpPath = `${dest}.download`;
 
   const youtubeVideoUrl = `https://www.youtube.com/watch?v=${song?.id}`;
@@ -64,7 +64,7 @@ export const downloadMusic = async (song) => {
         console.log('songRes.path(), path', songRes.path(), dest);
         await RNFetchBlob.fs.mv(songRes.path(), dest);
       }
-      console.log('The file is saved to:', dest);
+      song.path = dest;
     })
     .then((file) => {
       if (Platform.OS === 'android') {
@@ -83,11 +83,12 @@ export const downloadMusic = async (song) => {
       return RNFetchBlob.fs.stat(dest);
     })
     .then(async (stat) => {
-      // const imgRes = await RNFetchBlob.config({
-      //   path: `${dirs.DocumentDir}/${song.title}.jpg`,
-      // }).fetch('GET', song.thumb, {});
-      // song.thumb = imgRes.path();
+      const imgRes = await RNFetchBlob.config({
+        path: `${dirs.DocumentDir}/${song.id}.jpg`,
+      }).fetch('GET', song.thumb, {});
+      song.thumb = imgRes.path();
       console.log('download success', stat, song);
+      navigation.navigate('Player', {item: song});
     })
     .catch((err) => {
       console.log('download error', err);

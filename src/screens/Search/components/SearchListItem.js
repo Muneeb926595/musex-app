@@ -15,7 +15,7 @@ const SearchListItem = ({item, navigation}) => {
   const [downloading, setDownloading] = useState(DOWNLOADING_STATES.INTITAL);
 
   const handleClick = () => {
-    navigation.navigate('Player', {youtubeVideoId: item?.id});
+    navigation.navigate('Player', {item});
   };
 
   const handelDownload = () => {
@@ -28,7 +28,7 @@ const SearchListItem = ({item, navigation}) => {
       alert('something went wrong');
     };
 
-    downloadMusic(item, successCallback, errorCallback);
+    downloadMusic(item, navigation, successCallback, errorCallback);
   };
 
   return (
