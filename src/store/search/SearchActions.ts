@@ -20,7 +20,6 @@ export const searchSongs = (limit, searchText) => {
     fetch(url)
       .then(async (response) => {
         const searchData = await response.json();
-
         const filterResults = await filterOutDwonloadedSongs(
           formateSearchResults(searchData),
         );
@@ -33,7 +32,7 @@ export const searchSongs = (limit, searchText) => {
         }
       })
       .catch((error) => {
-        searchSongsFail(dispatch, 'There was an error connection2');
+        searchSongsFail(dispatch, error);
       });
   };
 };

@@ -1,17 +1,29 @@
 import RNFetchBlob from 'rn-fetch-blob';
 import {Platform} from 'react-native';
+import ytdl from 'react-native-ytdl';
+
 import {getSongsFromStorage} from 'store/search/services';
 
-export const downloadMusic = (song) => {
+export const downloadMusic = async (song, navigation) => {
+  //check if song already exists in local storage
+  let songs = await getSongsFromStorage();
+  const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
+  if (alreadyFoundInStorage) return {};
+
+  //download if song dosen't exists in local storage
   const {
     fs: {dirs},
   } = RNFetchBlob;
   const PATH_TO_LIST = dirs.DocumentDir;
-  const dest = `${PATH_TO_LIST}/${song.title}.mp4`;
+  let dest = `${PATH_TO_LIST}/${song.id}`;
   const tmpPath = `${dest}.download`;
+
+  const youtubeVideoUrl = `https://www.youtube.com/watch?v=${song?.id}`;
+
   RNFetchBlob.fs.ls(PATH_TO_LIST).then((files) => {
     console.log(files);
   });
+
   RNFetchBlob.fs
     .exists(tmpPath)
     .then((ext) => {
@@ -26,19 +38,33 @@ export const downloadMusic = (song) => {
       return Promise.resolve({size: 0});
     })
     .then(async (stat) => {
-      const file = await RNFetchBlob.config({
+      let downloadableURL = await ytdl(youtubeVideoUrl, {
+        quality: 'highestaudio',
+      });
+      downloadableURL = downloadableURL?.[0];
+      const {url, headers} = downloadableURL;
+
+      const songRes = await RNFetchBlob.config({
         IOSBackgroundTask: true, // required for both upload
         IOSDownloadTask: true, // Use instead of IOSDownloadTask if uploading
         path: Platform.OS === 'android' ? tmpPath : dest,
         fileCache: true,
+        overwrite: false,
       })
-        .fetch('GET', 'https://www.youtube.com/watch?v=ZawBD4JKw3E', {
-          Range: Platform.OS === 'android' ? `bytes=${stat.size}-` : '',
+        .fetch('GET', url, headers)
+        .progress((received, total) => {
+          console.log('progress', (received * (0 + 1)) / (total * 1));
         })
-        .progress((receivedStr, totalStr) => {
-          // Do any things
-          console.log('download progress', receivedStr, totalStr);
-        });
+        .catch((err) => console.error(`Could not save:"${path}" Reason:`, err));
+
+      const contentType = songRes.respInfo.headers['Content-Type'];
+      if (contentType) {
+        const extension = contentType.split('/')[1];
+        dest = `${dest}.${extension}`;
+        console.log('songRes.path(), path', songRes.path(), dest);
+        await RNFetchBlob.fs.mv(songRes.path(), dest);
+      }
+      song.path = dest;
     })
     .then((file) => {
       if (Platform.OS === 'android') {
@@ -57,64 +83,14 @@ export const downloadMusic = (song) => {
       return RNFetchBlob.fs.stat(dest);
     })
     .then(async (stat) => {
-      console.log('download success', stat);
-      // Downloaded successfully
+      const imgRes = await RNFetchBlob.config({
+        path: `${dirs.DocumentDir}/${song.id}.jpg`,
+      }).fetch('GET', song.thumb, {});
+      song.thumb = imgRes.path();
+      console.log('download success', stat, song);
+      navigation.navigate('Player', {item: song});
     })
     .catch((err) => {
       console.log('download error', err);
     });
 };
-
-// export const downloadMusic = (songUri, successCallback, errorCallback) => {
-//   RNFetchBlob.fetch(
-//     'GET',
-//     'https://images.unsplash.com/photo-1643381023493-d5d362b471f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw1fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
-//   )
-//     .then((res) => {
-//       let status = res.info().status;
-//       console.log('responge', res, 'status', status);
-//       if (status == 200) {
-//         // the conversion is done in native code
-//         let base64Str = res.base64();
-//         // the following conversions are done in js, it's SYNC
-//         let text = res.text();
-//         let json = res.json();
-//       }
-//       successCallback();
-//     })
-//     // Something went wrong:
-//     .catch((errorMessage) => {
-//       console.log('errorMessage, statusCode', errorMessage);
-//       errorCallback();
-//     });
-// };
-
-// export const downloadMusic = async (song) => {
-//   try {
-//     let songs = await getSongsFromStorage();
-//     const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
-//     if (alreadyFoundInStorage) return {};
-
-//     let dirs = RNFetchBlob.fs.dirs;
-//     let songInfo = {url: 'https://www.youtube.com/watch?v=ZawBD4JKw3E'};
-//     const songRes = await RNFetchBlob.config({
-//       path: `${dirs.DocumentDir}/${song.title}.mp4`,
-//     })
-//       .fetch('GET', songInfo.url, {})
-//       .progress((received, total) => {
-//         console.log(received / total, song.id);
-//       });
-//     const imgRes = await RNFetchBlob.config({
-//       path: `${dirs.DocumentDir}/${song.id}.jpg`,
-//     }).fetch('GET', song.thumb, {});
-//     console.log('got the song', song);
-//     song.path = songRes.path();
-//     song.thumb = imgRes.path();
-//     let updatedSongs = await Utils.setSongsToStorage(
-//       DOWNLOADED_SONGS,
-//       recover,
-//     );
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
