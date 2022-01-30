@@ -1,6 +1,7 @@
-import React from 'react';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import React, {useEffect} from 'react';
 import {TouchableOpacity} from 'react-native';
+import {useNavigationState} from '@react-navigation/native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Col, Icon} from 'components';
 
@@ -16,6 +17,14 @@ const TabBarItem = (props) => {
     activeMenu,
   } = props;
   const focused = activeMenu === navigateTo;
+  const state = useNavigationState((state) => state);
+  const routeName = state.routeNames[state.index];
+
+  useEffect(() => {
+    if (activeMenu !== routeName) {
+      setActiveMenu(routeName);
+    }
+  }, [routeName, activeMenu]);
 
   return (
     <Col centerAll>

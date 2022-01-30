@@ -13,7 +13,7 @@ const index = ({navigation}) => {
         pad={`${wp(12)}px ${wp(5)}px ${wp(25)}px ${wp(5)}px`}>
         <RecentlyDownloaded navigation={navigation} />
         <RecentPlayed navigation={navigation} />
-        <Discover />
+        <Discover navigation={navigation} />
       </Container>
     </>
   );

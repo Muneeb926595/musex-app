@@ -4,11 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
+import {Row, MyText, Icon, Col, Loader, Clickable} from 'components';
 import {getDiscoverSongs} from 'store/search/SearchActions';
-import {Row, MyText, Icon, Col, Loader} from 'components';
 import DiscoverCard from './DiscoverCard';
 
-const Discover = () => {
+const Discover = ({navigation}) => {
   const dispatch = useDispatch();
   const {loading, discoverResults} = useSelector(({Musex}) => Musex.search);
 
@@ -28,10 +28,12 @@ const Discover = () => {
           Discover
         </MyText>
         <Row noFlex center>
-          <MyText weight="300" color="#9d9d9d">
-            All
-          </MyText>
-          <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
+          <Clickable onClick={() => navigation.navigate('Browser')}>
+            <MyText weight="300" color="#9d9d9d">
+              All
+            </MyText>
+            <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
+          </Clickable>
         </Row>
       </Row>
       <Row noFlex wid="100%" pad={`0 ${wp(2)}px`} marg={`${wp(8)}px 0`}>
