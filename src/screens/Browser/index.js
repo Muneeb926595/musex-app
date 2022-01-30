@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Search, SearchListItem} from './components';
-import {Box} from 'components';
+import {Box, Col, Loader} from 'components';
 
 const index = ({navigation}) => {
   const {loading, searchResults} = useSelector(({Musex}) => Musex.search);
@@ -16,15 +16,21 @@ const index = ({navigation}) => {
   return (
     <Box pad={`${wp(12)}px ${wp(5)}px ${wp(12)}px ${wp(5)}px`}>
       <Search navigation={navigation} />
-      <FlatList
-        style={{
-          marginTop: wp(12),
-        }}
-        data={searchResults}
-        keyExtractor={(item) => item.id}
-        renderItem={renderListItem}
-        keyboardShouldPersistTaps="handled"
-      />
+      {loading ? (
+        <Col marg={`${wp(24)}px 0 0 0`} centerAll>
+          <Loader />
+        </Col>
+      ) : (
+        <FlatList
+          style={{
+            marginTop: wp(12),
+          }}
+          data={searchResults}
+          keyExtractor={(item) => item.id}
+          renderItem={renderListItem}
+          keyboardShouldPersistTaps="handled"
+        />
+      )}
     </Box>
   );
 };
