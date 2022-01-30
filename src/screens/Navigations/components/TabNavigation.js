@@ -4,8 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import TabBarItem from './TabBarItem';
-import {Home, Browser} from 'screens';
-import {MyText} from 'components';
+import {Home, Browser, Library, Settings} from 'screens';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAnglS7dFbdn7zmKxrshAIXsRSlSe50jCU',
@@ -22,23 +21,6 @@ if (!firebase?.apps?.length) {
 }
 
 const Tab = createBottomTabNavigator();
-
-const Market = () => {
-  return (
-    <MyText>
-      MarketHi there testing this new version of my app just a new testfor a
-      very long text
-    </MyText>
-  );
-};
-const Settings = () => {
-  return (
-    <MyText>
-      Settings there testing this new version of my app just a new testfor a
-      very long text
-    </MyText>
-  );
-};
 
 const TabNav = ({navigation}) => {
   const [activeMenu, setActiveMenu] = useState('Home');
@@ -103,8 +85,8 @@ const TabNav = ({navigation}) => {
           }}
         />
         <Tab.Screen
-          name="Market"
-          component={Market}
+          name="Library"
+          component={Library}
           options={{
             tabBarButton: (props) => (
               <TabBarItem
@@ -112,7 +94,7 @@ const TabNav = ({navigation}) => {
                 tabNumber={1}
                 iconHt={wp(8)}
                 iconWid={wp(8)}
-                navigateTo="Market"
+                navigateTo="Library"
                 activeMenu={activeMenu}
                 icon="music-library"
                 focused={props.focused}

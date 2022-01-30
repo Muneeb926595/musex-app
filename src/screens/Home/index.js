@@ -7,7 +7,7 @@ import {MainHeader, Container} from 'components';
 const index = ({navigation}) => {
   return (
     <>
-      <MainHeader navigation={navigation} />
+      <MainHeader navigation={navigation} title="Home" />
       <Container
         hasScroll
         pad={`${wp(12)}px ${wp(5)}px ${wp(25)}px ${wp(5)}px`}>
