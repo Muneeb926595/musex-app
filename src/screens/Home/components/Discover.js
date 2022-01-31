@@ -27,14 +27,14 @@ const Discover = ({navigation}) => {
         <MyText weight="bold" size={`${RFValue(17)}px`}>
           Discover
         </MyText>
-        <Row noFlex center>
-          <Clickable onClick={() => navigation.navigate('Browser')}>
+        <Clickable onClick={() => navigation.navigate('Browser')}>
+          <Row noFlex center>
             <MyText weight="300" color="#9d9d9d">
               All
             </MyText>
             <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
-          </Clickable>
-        </Row>
+          </Row>
+        </Clickable>
       </Row>
       <Row noFlex wid="100%" pad={`0 ${wp(2)}px`} marg={`${wp(8)}px 0`}>
         {loading ? (

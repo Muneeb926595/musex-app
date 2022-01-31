@@ -3,9 +3,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 const StorageKeys = {
   USER_ID: 'userId',
   Access_Token: 'access_token',
-  Deactivated: 'deactivated',
-  DeactivatedDate: 'deactivatedDate',
   SONGS: 'SONGS',
+  RECENTLY_PLAYED: 'RECENTLY_PLAYED',
 };
 
 async function saveItem(key, value) {
