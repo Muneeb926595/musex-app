@@ -2,7 +2,13 @@ import React from 'react';
 import {Image} from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Box, Col, YouTubeVideoPlayer, VideoPlayer} from 'components';
+import {
+  Box,
+  Col,
+  YouTubeVideoPlayer,
+  VideoPlayer,
+  AudioPlayer,
+} from 'components';
 
 const Cover = ({item}) => {
   return (
@@ -20,7 +26,8 @@ const Cover = ({item}) => {
             marginBottom={wp(2)}
             borderRadius={wp(5)}
           />
-        ) : item?.id ? (
+        ) : // <AudioPlayer uri={item?.path} />
+        item?.id ? (
           <YouTubeVideoPlayer
             width="100%"
             height="100%"
