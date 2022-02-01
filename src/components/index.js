@@ -9,6 +9,7 @@ export {default as Loader} from './Loader';
 export {default as Avatar} from './Avatar';
 export {default as YouTubeVideoPlayer} from './YouTubeVideoPlayer';
 export {default as VideoPlayer} from './VideoPlayer';
+export {default as AudioPlayer} from './AudioPlayer';
 export {default as Clickable} from './Clickable';
 export {default as Container} from './Container';
 export {default as CustomModal} from './CustomModal';
