@@ -42,7 +42,6 @@ export const getSongFromStorage = async (id) => {
 
 export const setSongsToStorage = async (song) => {
   let storageSongs = await getSongsFromStorage();
-  console.log('got this', storageSongs);
   let newSongs = [...storageSongs, song];
   StorageHelper.saveItem(
     StorageHelper.StorageKeys.SONGS,

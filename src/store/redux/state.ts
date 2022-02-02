@@ -10,5 +10,11 @@ declare global {
     discoverResults: any;
     loading?: boolean;
   }
+  interface SongState {
+    songs: any;
+    recent: any;
+    playlists: any;
+    loading?: boolean;
+  }
 }
-export {AuthState, SearchState};
+export {AuthState, SearchState, SongState};

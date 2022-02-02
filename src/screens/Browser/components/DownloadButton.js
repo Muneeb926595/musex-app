@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {ActivityIndicator} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {RFValue} from 'react-native-responsive-fontsize';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
+import {setSongs} from 'store/songs/SongsActions';
 import {Icon, Clickable} from 'components';
 import {downloadMusic} from 'helpers';
 
@@ -15,6 +17,7 @@ const DOWNLOADING_STATES = {
 };
 
 const DownloadButton = ({item}) => {
+  const dispatch = useDispatch();
   const [downloading, setDownloading] = useState(DOWNLOADING_STATES.INTITAL);
   const [downloadProgress, setDownloadProgress] = useState(0);
 
@@ -23,8 +26,11 @@ const DownloadButton = ({item}) => {
     const handleStartDownloading = () => {
       setDownloading(DOWNLOADING_STATES.DOWNLOAING);
     };
-    const successCallback = () => {
+    const successCallback = (message, downloadedSong) => {
       setDownloading(DOWNLOADING_STATES.DOWNLOADED);
+      if (message === 'Song Downloaded' && downloadedSong) {
+        dispatch(setSongs(downloadedSong));
+      }
     };
     const errorCallback = () => {
       setDownloading(DOWNLOADING_STATES.INTITAL);
