@@ -2,7 +2,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import {Platform} from 'react-native';
 import ytdl from 'react-native-ytdl';
 
-import {getSongsFromStorage, setSongsToStorage} from 'store/search/services';
+import {getSongsFromStorage} from 'store/search/services';
 
 export const downloadMusic = async (
   song,
@@ -14,7 +14,7 @@ export const downloadMusic = async (
   //check if song already exists in local storage
   let songs = await getSongsFromStorage();
   const alreadyFoundInStorage = songs.find((item) => item.id === song.id);
-  if (alreadyFoundInStorage) return {};
+  if (alreadyFoundInStorage) return successCallback('Song already downloaded');
 
   //download if song dosen't exists in local storage
   const {
@@ -93,8 +93,7 @@ export const downloadMusic = async (
         path: `${dirs.DocumentDir}/${song.id}.jpg`,
       }).fetch('GET', song.thumb, {});
       song.thumb = imgRes.path();
-      setSongsToStorage(song);
-      successCallback();
+      successCallback('Song Downloaded', song);
     })
     .catch((err) => {
       console.log('download error', err);

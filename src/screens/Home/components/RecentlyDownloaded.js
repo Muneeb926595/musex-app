@@ -1,20 +1,19 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import {RFValue} from 'react-native-responsive-fontsize';
 import {FlatList} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {RFValue} from 'react-native-responsive-fontsize';
+import React, {useEffect, useCallback} from 'react';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, MyText, Icon, Col, PostImage, Clickable} from 'components';
-import {getSongsFromStorage} from 'store/search/services';
+import {getSongs} from 'store/songs/SongsActions';
 
 const RecentlyDownloaded = ({navigation}) => {
-  const [songs, setSongs] = useState([]);
+  const dispatch = useDispatch();
+
+  const {loading, songs} = useSelector(({Musex}) => Musex.songs);
 
   useEffect(() => {
-    const getSongsList = async () => {
-      const tempList = await getSongsFromStorage();
-      setSongs(tempList);
-    };
-    getSongsList();
+    dispatch(getSongs());
   }, []);
 
   const renderListItem = useCallback(({item}) => {
