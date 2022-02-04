@@ -38,7 +38,7 @@ const Discover = ({navigation}) => {
       </Row>
       <Row noFlex wid="100%" pad={`0 ${wp(2)}px`} marg={`${wp(8)}px 0`}>
         {loading ? (
-          <Row centerAll marg={`${wp(8)}px 0 0 0`}>
+          <Row noFlex wid="100%" centerAll marg={`${wp(8)}px 0 0 0`}>
             <Loader />
           </Row>
         ) : (

@@ -1,20 +1,36 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import {FlatList} from 'react-native';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {RecentPlayed, Discover, RecentlyDownloaded} from './components';
-import {MainHeader, Container} from 'components';
+import {MainHeader} from 'components';
 
 const index = ({navigation}) => {
-  return (
-    <>
-      <MainHeader navigation={navigation} title="Home" />
-      <Container
-        hasScroll
-        pad={`${wp(12)}px ${wp(5)}px ${wp(25)}px ${wp(5)}px`}>
+  const renderListItem = useCallback(
+    ({item}) => (
+      <>
         <RecentlyDownloaded navigation={navigation} />
         <RecentPlayed navigation={navigation} />
         <Discover navigation={navigation} />
-      </Container>
+      </>
+    ),
+    [],
+  );
+  return (
+    <>
+      <MainHeader navigation={navigation} title="Home" />
+      <FlatList
+        style={{
+          paddingTop: wp(12),
+          paddingRight: wp(5),
+          paddingBottom: wp(25),
+          paddingLeft: wp(5),
+        }}
+        data={[1]}
+        keyExtractor={(item) => item.id}
+        renderItem={renderListItem}
+        keyboardShouldPersistTaps="handled"
+      />
     </>
   );
 };
