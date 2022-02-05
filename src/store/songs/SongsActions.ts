@@ -1,6 +1,11 @@
 import {SongsActionTypes} from '../redux/actionTypes';
 
-import {getSongsFromStorage, setSongsToStorage} from '../search/services';
+import {
+  getSongsFromStorage,
+  setSongsToStorage,
+  updateRecentSongsInStorage,
+  getRecentSongsFromStorage,
+} from '../search/services';
 
 export const getSongs = () => {
   return async (dispatch) => {
@@ -60,4 +65,70 @@ const setSongsFail = (dispatch, errorMessage) => {
 };
 const setSongsSuccess = (dispatch) => {
   dispatch(getSongs());
+};
+
+export const getRecentsSongs = () => {
+  return async (dispatch) => {
+    dispatch({
+      type: SongsActionTypes.GET_RECENT_SONGS_START,
+      payload: {},
+    });
+
+    try {
+      const songs = await getRecentSongsFromStorage();
+      getRecentsSongsSuccess(dispatch, songs);
+    } catch (err) {
+      getRecentsSongsFail(dispatch, err);
+    }
+  };
+};
+const getRecentsSongsFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: SongsActionTypes.GET_RECENT_SONGS_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const getRecentsSongsSuccess = (dispatch, songs) => {
+  dispatch({
+    type: SongsActionTypes.GET_RECENT_SONGS_SUCCESS,
+    payload: {
+      songs,
+    },
+  });
+};
+
+export const updateRecentsSongs = (song) => {
+  return async (dispatch) => {
+    dispatch({
+      type: SongsActionTypes.UPDATE_RECENTS_START,
+      payload: {},
+    });
+
+    try {
+      const songs = await updateRecentSongsInStorage(song);
+      updateRecentsSongsSuccess(dispatch, songs);
+    } catch (err) {
+      updateRecentsSongsFail(dispatch, err);
+    }
+  };
+};
+const updateRecentsSongsFail = (dispatch, errorMessage) => {
+  console.log(errorMessage);
+  dispatch({
+    type: SongsActionTypes.UPDATE_RECENTS_FAIL,
+    payload: {
+      errorMessage,
+    },
+  });
+};
+const updateRecentsSongsSuccess = (dispatch, songs) => {
+  dispatch({
+    type: SongsActionTypes.UPDATE_RECENTS_FAIL,
+    payload: {
+      songs,
+    },
+  });
 };

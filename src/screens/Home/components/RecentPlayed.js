@@ -1,15 +1,24 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {FlatList} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Row, MyText, Icon, Col, Avatar, Box} from 'components';
+import {Row, MyText, Icon, Col} from 'components';
+import {getRecentsSongs} from 'store/songs/SongsActions';
 import RecentCard from './RecentCard';
 
 const RecentPlayed = ({navigation}) => {
-  const recentData = [1, 2, 3, 4, 5];
+  const dispatch = useDispatch();
+
+  const {loading, recent} = useSelector(({Musex}) => Musex.songs);
+
+  useEffect(() => {
+    dispatch(getRecentsSongs());
+  }, []);
+
   const renderListItem = useCallback(
-    ({item}) => <RecentCard navigation={navigation} />,
+    ({item}) => <RecentCard item={item} navigation={navigation} />,
     [],
   );
   return (
@@ -25,16 +34,26 @@ const RecentPlayed = ({navigation}) => {
           <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
         </Row>
       </Row>
-      <FlatList
-        style={{
-          paddingHorizontal: wp(2),
-          marginVertical: wp(8),
-        }}
-        data={recentData}
-        keyExtractor={(item) => item.id}
-        renderItem={renderListItem}
-        keyboardShouldPersistTaps="handled"
-      />
+      {recent?.length > 0 ? (
+        <FlatList
+          style={{
+            paddingHorizontal: wp(2),
+            marginVertical: wp(8),
+          }}
+          data={recent}
+          keyExtractor={(item) => item.id}
+          renderItem={renderListItem}
+          keyboardShouldPersistTaps="handled"
+        />
+      ) : (
+        <MyText
+          pad={`0 ${wp(2)}px`}
+          marg={`${wp(8)}px 0`}
+          center
+          color="#adadad">
+          No recent played
+        </MyText>
+      )}
     </Col>
   );
 };

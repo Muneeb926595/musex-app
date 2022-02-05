@@ -5,7 +5,7 @@ import React, {useEffect, useCallback} from 'react';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, MyText, Icon, Col, PostImage, Clickable} from 'components';
-import {getSongs} from 'store/songs/SongsActions';
+import {getSongs, updateRecentsSongs} from 'store/songs/SongsActions';
 
 const RecentlyDownloaded = ({navigation}) => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const RecentlyDownloaded = ({navigation}) => {
 
   const renderListItem = useCallback(({item}) => {
     const handleClick = () => {
+      dispatch(updateRecentsSongs(item));
       navigation.navigate('Player', {item});
     };
 

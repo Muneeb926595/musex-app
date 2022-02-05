@@ -33,6 +33,14 @@ export const getSongsFromStorage = async () => {
   return JSON.parse(songs);
 };
 
+export const getRecentSongsFromStorage = async () => {
+  let songs = await StorageHelper.getItem(
+    StorageHelper.StorageKeys.RECENTLY_PLAYED,
+  );
+  songs = songs || JSON.stringify([]);
+  return JSON.parse(songs);
+};
+
 export const getSongFromStorage = async (id) => {
   let songs = await StorageHelper.getItem(StorageHelper.StorageKeys.SONGS);
   songs = songs || JSON.stringify([]);
@@ -42,9 +50,19 @@ export const getSongFromStorage = async (id) => {
 
 export const setSongsToStorage = async (song) => {
   let storageSongs = await getSongsFromStorage();
-  let newSongs = [...storageSongs, song];
+  let newSongs = [song, ...storageSongs];
   StorageHelper.saveItem(
     StorageHelper.StorageKeys.SONGS,
     JSON.stringify(newSongs),
-  ).then(() => console.log('saved'));
+  ).then(() => console.log('setSongsToStorage saved'));
+};
+
+export const updateRecentSongsInStorage = async (song) => {
+  let recentStorageSongs = await getRecentSongsFromStorage();
+  let newSongs = [song, ...recentStorageSongs];
+  StorageHelper.saveItem(
+    StorageHelper.StorageKeys.RECENTLY_PLAYED,
+    JSON.stringify(newSongs),
+  ).then(() => console.log('updateRecentSongsInStorage saved'));
+  return newSongs;
 };

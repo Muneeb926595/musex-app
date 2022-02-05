@@ -33,6 +33,40 @@ const AuthReducer = (
         loading: false,
       };
     }
+    case SongsActionTypes.GET_RECENT_SONGS_START: {
+      return {...state, loading: true};
+    }
+    case SongsActionTypes.GET_RECENT_SONGS_SUCCESS: {
+      state.recent = [];
+      return {
+        ...state,
+        recent: action.payload.songs,
+        loading: false,
+      };
+    }
+    case SongsActionTypes.GET_RECENT_SONGS_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
+    case SongsActionTypes.UPDATE_RECENTS_START: {
+      return {...state, loading: true};
+    }
+    case SongsActionTypes.UPDATE_RECENTS_SUCCESS: {
+      state.recent = [];
+      return {
+        ...state,
+        recent: action.payload.songs,
+        loading: false,
+      };
+    }
+    case SongsActionTypes.UPDATE_RECENTS_FAIL: {
+      return {
+        ...state,
+        loading: false,
+      };
+    }
     default: {
       return state;
     }
