@@ -21,6 +21,9 @@ const VideoPlayer = ({
       autoPlay={true}
       controls={true}
       ref={videoRef}
+      playInBackground={true}
+      playWhenInactive={true}
+      ignoreSilentSwitch="ignore"
       resizeMode="cover"
       style={{
         width: width ? width : size || 25,
