@@ -126,7 +126,7 @@ const updateRecentsSongsFail = (dispatch, errorMessage) => {
 };
 const updateRecentsSongsSuccess = (dispatch, songs) => {
   dispatch({
-    type: SongsActionTypes.UPDATE_RECENTS_FAIL,
+    type: SongsActionTypes.UPDATE_RECENTS_SUCCESS,
     payload: {
       songs,
     },
