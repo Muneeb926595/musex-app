@@ -4,9 +4,9 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, MyText, Col, Avatar, Clickable} from 'components';
 
-const RecentCard = ({navigation}) => {
+const RecentCard = ({item, navigation}) => {
   const handleCardClick = () => {
-    navigation.navigate('Player');
+    navigation.navigate('Player', {item});
   };
   return (
     <Clickable onClick={handleCardClick}>
@@ -18,16 +18,13 @@ const RecentCard = ({navigation}) => {
         bg="#ffffff"
         center>
         <Row center>
-          <Avatar
-            uri="https://images.unsplash.com/photo-1498746607408-1e56960e3bdd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Z2lybHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
-            size={wp(14)}
-          />
+          <Avatar uri={item?.thumb} size={wp(14)} />
           <Col marg={`0 0 0 ${wp(4)}px`} noFlex>
             <MyText weight="300" marg={`0 0 ${wp(0.8)}px 0`} color="#9d9d9d">
-              The Weeknd
+              {item?.title?.toString()?.substring(0, 10)}
             </MyText>
             <MyText weight="bold" size={`${RFValue(17)}px`}>
-              Faith
+              {item?.artist?.toString()?.substring(0, 10)}
             </MyText>
           </Col>
         </Row>
