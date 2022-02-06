@@ -34,6 +34,10 @@ const RecentlyDownloaded = ({navigation}) => {
     );
   }, []);
   const keyExtractor = useCallback((item, index) => item._id + index, []);
+
+  const handleClickOthers = () => {
+    navigation.navigate('Library');
+  };
   return (
     <Col noFlex>
       <Row noFlex center between>
@@ -41,9 +45,11 @@ const RecentlyDownloaded = ({navigation}) => {
           Recently Added
         </MyText>
         <Row noFlex center>
-          <MyText weight="300" color="#9d9d9d">
-            Others
-          </MyText>
+          <Clickable onClick={handleClickOthers}>
+            <MyText weight="300" color="#9d9d9d">
+              Others
+            </MyText>
+          </Clickable>
           <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
         </Row>
       </Row>
