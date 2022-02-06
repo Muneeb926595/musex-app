@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {TabNav} from './components';
 import {Col} from 'components';
-import {Search, Player} from 'screens';
+import {Search, Player, Recents} from 'screens';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +43,15 @@ const index = () => {
           }}
           name="Player"
           component={Player}
+        />
+        <Stack.Screen
+          options={{
+            cardStyle: {
+              backgroundColor: '#ffffff',
+            },
+          }}
+          name="Recents"
+          component={Recents}
         />
       </Stack.Navigator>
     </NavigationContainer>
