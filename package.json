@@ -29,6 +29,7 @@
     "react-native-fbsdk": "^3.0.0",
     "react-native-flipper": "^0.131.1",
     "react-native-gesture-handler": "^2.2.0",
+    "react-native-music-control": "^1.4.0",
     "react-native-performance": "^2.1.0",
     "react-native-performance-flipper-reporter": "^2.0.0",
     "react-native-popover-view": "^4.1.0",

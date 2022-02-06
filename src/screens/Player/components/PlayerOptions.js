@@ -4,10 +4,9 @@ import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import {Row, Box, Icon, Clickable} from 'components';
 
-const PlayerOptions = () => {
+const PlayerOptions = ({isPlaying, setIsPlaying}) => {
   const [isRepeat, setIsRepeat] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const handelPlay = () => {
     setIsPlaying(!isPlaying);
