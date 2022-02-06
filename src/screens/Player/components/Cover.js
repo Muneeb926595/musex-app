@@ -10,7 +10,7 @@ import {
   AudioPlayer,
 } from 'components';
 
-const Cover = ({item}) => {
+const Cover = ({item, isPlaying, setIsPlaying}) => {
   return (
     <Col centerAll>
       <Box
@@ -21,10 +21,13 @@ const Cover = ({item}) => {
         {item?.path ? (
           <VideoPlayer
             uri={item?.path}
+            item={item}
             width="100%"
             height="100%"
             marginBottom={wp(2)}
             borderRadius={wp(5)}
+            isPlaying={isPlaying}
+            setIsPlaying={setIsPlaying}
           />
         ) : // <AudioPlayer uri={item?.path} />
         item?.id ? (

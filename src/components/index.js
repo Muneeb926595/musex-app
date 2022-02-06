@@ -12,6 +12,7 @@ export {default as VideoPlayer} from './VideoPlayer';
 export {default as AudioPlayer} from './AudioPlayer';
 export {default as Clickable} from './Clickable';
 export {default as Container} from './Container';
+export {default as VideoTimer} from './VideoTimer';
 export {default as CustomModal} from './CustomModal';
 export {default as Icon} from './Icon';
 export {default as PostImage} from './PostImage';
