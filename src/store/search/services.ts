@@ -59,7 +59,21 @@ export const setSongsToStorage = async (song) => {
 
 export const updateRecentSongsInStorage = async (song) => {
   let recentStorageSongs = await getRecentSongsFromStorage();
-  let newSongs = [song, ...recentStorageSongs];
+  let newSongs;
+  let songAlreadyExists = recentStorageSongs.find(
+    (item) => item?.id?.toString() === song?.id?.toString(),
+  );
+  if (songAlreadyExists) {
+    const rearrangedSongs = recentStorageSongs?.map((singleSong) => {
+      if (singleSong?.id?.toString() !== song?.id?.toString()) {
+        return singleSong;
+      }
+    });
+    newSongs = [songAlreadyExists, rearrangedSongs];
+  } else {
+    newSongs = [song, ...recentStorageSongs];
+  }
+
   StorageHelper.saveItem(
     StorageHelper.StorageKeys.RECENTLY_PLAYED,
     JSON.stringify(newSongs),
