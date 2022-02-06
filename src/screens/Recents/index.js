@@ -1,14 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {RFValue} from 'react-native-responsive-fontsize';
 import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
-import {Row, MyText, Icon, Clickable, Col} from 'components';
+import RecentCard from '../Home/components/RecentCard';
 import {getRecentsSongs} from 'store/songs/SongsActions';
-import RecentCard from './RecentCard';
+import {MainHeader} from 'components';
 
-const RecentPlayed = ({navigation}) => {
+const index = ({navigation}) => {
   const dispatch = useDispatch();
 
   const {loading, recent} = useSelector(({Musex}) => Musex.songs);
@@ -16,34 +15,17 @@ const RecentPlayed = ({navigation}) => {
   useEffect(() => {
     dispatch(getRecentsSongs());
   }, []);
-
   const renderListItem = useCallback(
     ({item}) => <RecentCard item={item} navigation={navigation} />,
     [],
   );
-
-  const handleClickMore = () => {
-    navigation.navigate('Recents');
-  };
-
   return (
-    <Col>
-      <Row noFlex center between>
-        <MyText weight="bold" size={`${RFValue(17)}px`}>
-          Recent played
-        </MyText>
-        <Row noFlex center>
-          <Clickable onClick={handleClickMore}>
-            <MyText weight="300" color="#9d9d9d">
-              More
-            </MyText>
-          </Clickable>
-          <Icon marg={`0 0 0 ${wp(1)}px`} size={wp(2.4)} type="right-arrow" />
-        </Row>
-      </Row>
+    <>
+      <MainHeader hideSearch title="Recents" />
       {recent?.length > 0 ? (
         <FlatList
           style={{
+            height: '100%',
             paddingHorizontal: wp(2),
             marginVertical: wp(8),
           }}
@@ -61,8 +43,8 @@ const RecentPlayed = ({navigation}) => {
           No recent played
         </MyText>
       )}
-    </Col>
+    </>
   );
 };
 
-export default RecentPlayed;
+export default index;
